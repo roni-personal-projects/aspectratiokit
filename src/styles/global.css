@@ -110,9 +110,28 @@
   background-color: #0d0d0d !important;
 }
 
+.dark .bg-\[\#f2f2f2\],
+.dark .hover\:bg-\[\#f2f2f2\]:hover {
+  background-color: #1a1a1a !important;
+}
+
+.dark .bg-\[\#ebebeb\],
+.dark .hover\:bg-\[\#ebebeb\]:hover {
+  background-color: #242424 !important;
+}
+
+.dark .bg-\[\#ebebeb\]\/50 {
+  background-color: rgba(255, 255, 255, 0.07) !important;
+}
+
+.dark .bg-\[\#ebebeb\]\/70 {
+  background-color: #262626 !important;
+}
+
 .dark .border-\[\#ebebeb\],
 .dark .border-\[\#ebebeb\]\/80,
 .dark .border-\[\#ebebeb\]\/60,
+.dark .border-\[\#f2f2f2\],
 .dark .divide-\[\#ebebeb\] > :not([hidden]) ~ :not([hidden]),
 .dark .divide-\[\#ebebeb\] {
   border-color: #262626 !important;
@@ -123,14 +142,75 @@
 }
 
 .dark .text-\[\#4d4d4d\] {
-  color: #a1a1a1 !important;
+  color: #a8b0ba !important;
 }
 
 .dark .text-\[\#737373\],
 .dark .text-\[\#8f8f8f\] {
-  color: #737373 !important;
+  color: #a1a1a1 !important;
 }
 
+/* Sample buttons & badges in dark mode */
+.dark .sample-btn {
+  background-color: #1c1c1c !important;
+  color: #ededed !important;
+  border: 1px solid #2e2e2e !important;
+}
+
+.dark .sample-btn:hover {
+  background-color: #282828 !important;
+  color: #ffffff !important;
+  border-color: #444444 !important;
+}
+
+/* Active Preset and Multiplier Buttons (High Contrast Inverse) */
+.dark .calc-preset-btn.bg-\[\#171717\],
+.dark .scale-btn.bg-\[\#171717\],
+.dark .crop-preset-btn.bg-\[\#171717\],
+.dark .solver-preset-btn.bg-\[\#171717\],
+.dark #btn-lock-aspect[data-locked="true"] {
+  background-color: #ededed !important;
+  color: #121212 !important;
+  border-color: #ededed !important;
+  font-weight: 600 !important;
+}
+
+/* Inactive Preset Buttons in Dark Mode */
+.dark .calc-preset-btn:not(.bg-\[\#171717\]),
+.dark .scale-btn:not(.bg-\[\#171717\]),
+.dark .crop-preset-btn:not(.bg-\[\#171717\]),
+.dark .solver-preset-btn:not(.bg-\[\#171717\]) {
+  background-color: #161616 !important;
+  color: #d4d4d4 !important;
+  border-color: #2a2a2a !important;
+}
+
+.dark .calc-preset-btn:not(.bg-\[\#171717\]):hover,
+.dark .scale-btn:not(.bg-\[\#171717\]):hover,
+.dark .crop-preset-btn:not(.bg-\[\#171717\]):hover,
+.dark .solver-preset-btn:not(.bg-\[\#171717\]):hover {
+  background-color: #222222 !important;
+  border-color: #404040 !important;
+  color: #ffffff !important;
+}
+
+/* Preset Directory Category Filter Bar */
+.dark .preset-filter-btn.bg-white {
+  background-color: #2a2a2a !important;
+  color: #ffffff !important;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4) !important;
+}
+
+.dark .preset-filter-btn:not(.bg-white) {
+  color: #a1a1a1 !important;
+}
+
+.dark .preset-filter-btn:not(.bg-white):hover {
+  background-color: #222222 !important;
+  color: #ffffff !important;
+}
+
+/* Form Inputs and Selects */
 .dark input[type="number"],
 .dark input[type="text"],
 .dark input[type="email"],
@@ -149,6 +229,7 @@
   border-color: #ededed !important;
 }
 
+/* Workbench Tool Tabs */
 .dark .tool-tab.bg-\[\#ffffff\] {
   background-color: #262626 !important;
   color: #ffffff !important;
@@ -163,6 +244,7 @@
   color: #ffffff !important;
 }
 
+/* Image Dropzone */
 .dark #image-dropzone {
   background-color: #121212 !important;
   border-color: #333333 !important;
@@ -171,6 +253,125 @@
 .dark #image-dropzone:hover {
   background-color: #181818 !important;
   border-color: #ededed !important;
+}
+
+.dark #image-dropzone .rounded-full.bg-\[\#f2f2f2\] {
+  background-color: #222222 !important;
+  color: #ededed !important;
+}
+
+.dark #image-dropzone:hover .rounded-full.bg-\[\#f2f2f2\] {
+  background-color: #2a2a2a !important;
+  color: #ffffff !important;
+}
+
+/* Detected Metrics Card & Secondary Action Buttons */
+.dark #detected-orientation-badge {
+  background-color: #1c1c1c !important;
+  border-color: #2e2e2e !important;
+  color: #ededed !important;
+}
+
+.dark #send-to-crop-btn,
+.dark #send-to-resize-btn,
+.dark #btn-swap-dims,
+.dark #btn-toggle-grid,
+.dark #btn-toggle-theme {
+  background-color: #181818 !important;
+  border-color: #2c2c2c !important;
+  color: #ededed !important;
+}
+
+.dark #send-to-crop-btn:hover,
+.dark #send-to-resize-btn:hover,
+.dark #btn-swap-dims:hover,
+.dark #btn-toggle-grid:hover,
+.dark #btn-toggle-theme:hover {
+  background-color: #242424 !important;
+  border-color: #444444 !important;
+  color: #ffffff !important;
+}
+
+/* Workbench Copy Snippets Strip */
+.dark .copy-btn {
+  background-color: #141414 !important;
+  border-color: #262626 !important;
+}
+
+.dark .copy-btn:hover {
+  background-color: #1f1f1f !important;
+  border-color: #383838 !important;
+}
+
+.dark .copy-btn div#copy-code-css,
+.dark .copy-btn div#copy-code-tailwind,
+.dark .copy-btn div#copy-code-dims,
+.dark .copy-btn div#copy-code-html {
+  color: #ededed !important;
+}
+
+.dark .copy-btn:hover .text-\[\#8f8f8f\] {
+  color: #ededed !important;
+}
+
+/* Visualizer Canvas Stage & Shape Box */
+.dark #visualizer-stage {
+  background-color: #111111 !important;
+  border-color: #262626 !important;
+}
+
+.dark #visualizer-stage #shape-box:not(.border-white) {
+  border-color: #ededed !important;
+  background-color: rgba(255, 255, 255, 0.05) !important;
+}
+
+.dark #thirds-grid > div {
+  border-color: rgba(255, 255, 255, 0.16) !important;
+}
+
+.dark #vis-ratio-label {
+  color: #ededed !important;
+}
+
+.dark #vis-dim-tag {
+  background-color: rgba(20, 20, 20, 0.85) !important;
+  color: #a1a1a1 !important;
+}
+
+.dark #vis-orientation-text,
+.dark #vis-scale-text,
+.dark #scale-slider-value {
+  color: #ededed !important;
+}
+
+.dark #btn-download-image {
+  background-color: #ededed !important;
+  color: #121212 !important;
+}
+
+.dark #btn-download-image:hover {
+  background-color: #ffffff !important;
+}
+
+/* Tables across Reference Guides & Individual Calculator Pages */
+.dark thead.bg-\[\#fafafa\] {
+  background-color: #141414 !important;
+}
+
+.dark thead th {
+  color: #a1a1a1 !important;
+}
+
+.dark tr.hover\:bg-\[\#fafafa\]:hover {
+  background-color: #181818 !important;
+}
+
+/* Badges & Chips */
+.dark span.bg-\[\#f2f2f2\],
+.dark span.bg-\[\#fafafa\] {
+  background-color: #1c1c1c !important;
+  border-color: #2a2a2a !important;
+  color: #ededed !important;
 }
 
 
