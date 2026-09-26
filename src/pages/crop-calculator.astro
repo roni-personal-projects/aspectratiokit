@@ -1,0 +1,65 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import AspectRatioWorkbench from '../components/AspectRatioWorkbench.astro';
+---
+
+<BaseLayout
+  title="Image Crop Calculator - Calculate Exact Pixels & Framing Trims"
+  description="Determine exact pixel crop amounts, letterbox/pillarbox padding, and framing requirements when converting between aspect ratios."
+  canonicalPath="/crop-calculator"
+  activeNav="/crop-calculator"
+>
+  <div class="py-12 bg-[#fafafa] border-b border-[#ebebeb]">
+    <div class="max-w-4xl mx-auto px-4 text-center">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white border border-[#ebebeb] text-xs font-mono uppercase text-[#ee0000] mb-4">
+        <span>Framing & Cropping Solver</span>
+      </div>
+      <h1 class="text-3xl sm:text-5xl font-semibold tracking-tight text-[#171717]">
+        Image Crop & Framing Calculator
+      </h1>
+      <p class="mt-3 text-base text-[#4d4d4d] max-w-xl mx-auto">
+        Find out exactly how many pixels will be trimmed from the top, bottom, left, or right when fitting an image into a new aspect ratio.
+      </p>
+    </div>
+  </div>
+
+  <AspectRatioWorkbench
+    initialMode="crop"
+    defaultWidth={1920}
+    defaultHeight={1080}
+    title="Interactive Crop Analyzer"
+    subtitle="Select your source dimensions and target ratio to see exact trim pixels and live visual crop boundaries."
+  />
+
+  <section class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-8">
+    <div>
+      <h2 class="text-2xl font-semibold text-[#171717]">Common Cropping Scenarios</h2>
+      <p class="text-sm text-[#4d4d4d] mt-1">
+        What happens to your images when reformatting for different social networks:
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div class="bg-white p-5 rounded-xl border border-[#ebebeb] whisper-shadow space-y-2">
+        <div class="text-xs font-mono font-bold text-[#171717]">16:9 → 1:1 Square (Instagram)</div>
+        <p class="text-xs text-[#4d4d4d] leading-relaxed">
+          Converting a horizontal 1920×1080 video into a square 1080×1080 post requires trimming 840 pixels horizontally (420px from the left, 420px from the right). You retain 56.3% of the image.
+        </p>
+      </div>
+
+      <div class="bg-white p-5 rounded-xl border border-[#ebebeb] whisper-shadow space-y-2">
+        <div class="text-xs font-mono font-bold text-[#171717]">16:9 → 9:16 (TikTok / Reels)</div>
+        <p class="text-xs text-[#4d4d4d] leading-relaxed">
+          Cropping a horizontal 1920×1080 shot to vertical 9:16 retains only 31.6% of the original frame (607×1080 px). Important subjects must be centered, or letterboxing should be used instead.
+        </p>
+      </div>
+
+      <div class="bg-white p-5 rounded-xl border border-[#ebebeb] whisper-shadow space-y-2">
+        <div class="text-xs font-mono font-bold text-[#171717]">3:2 DSLR → 4:5 (Instagram Portrait)</div>
+        <p class="text-xs text-[#4d4d4d] leading-relaxed">
+          A standard 6000×4000 photo cropped to 4:5 produces 3200×4000 pixels, trimming 1400px from each side.
+        </p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

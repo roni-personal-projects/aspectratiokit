@@ -1,0 +1,68 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import AspectRatioWorkbench from '../components/AspectRatioWorkbench.astro';
+
+const resolutions43 = [
+  { label: 'iPad Pro Retina', w: 2732, h: 2048, use: 'Apple iPad Pro 12.9" native screen' },
+  { label: 'iPad Standard', w: 2048, h: 1536, use: 'iPad Air & standard iPads' },
+  { label: 'Super XGA+ (SXGA+)', w: 1400, h: 1050, use: 'Computer displays' },
+  { label: 'XGA Standard', w: 1024, h: 768, use: 'Classic PC monitors & presentations' },
+  { label: 'SVGA', w: 800, h: 600, use: 'Retro gaming & classic web' },
+  { label: 'VGA', w: 640, h: 480, use: 'Standard definition NTSC television' },
+];
+---
+
+<BaseLayout
+  title="4:3 Aspect Ratio Calculator - Classic TV & iPad Dimensions"
+  description="Calculate exact 4:3 dimensions for retro monitors, iPad screens, Micro Four Thirds cameras, and classic television."
+  canonicalPath="/4-3-calculator"
+  activeNav="/4-3-calculator"
+>
+  <div class="py-12 bg-[#fafafa] border-b border-[#ebebeb]">
+    <div class="max-w-4xl mx-auto px-4 text-center">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white border border-[#ebebeb] text-xs font-mono uppercase text-[#171717] mb-4">
+        <span>Standard Display Ratio (1.33:1)</span>
+      </div>
+      <h1 class="text-3xl sm:text-5xl font-semibold tracking-tight text-[#171717]">
+        4:3 Aspect Ratio Calculator
+      </h1>
+      <p class="mt-3 text-base text-[#4d4d4d] max-w-xl mx-auto">
+        The historic fullscreen television standard, Apple iPad tablet display proportion, and Micro Four Thirds digital sensor format.
+      </p>
+    </div>
+  </div>
+
+  <AspectRatioWorkbench
+    initialMode="calculator"
+    defaultRatioW={4}
+    defaultRatioH={3}
+    defaultWidth={1024}
+    defaultHeight={768}
+  />
+
+  <section class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <h2 class="text-xl font-semibold text-[#171717] mb-4">Common 4:3 Resolutions</h2>
+    <div class="bg-white rounded-xl border border-[#ebebeb] overflow-hidden whisper-shadow">
+      <table class="w-full text-left text-xs sm:text-sm">
+        <thead class="bg-[#fafafa] border-b border-[#ebebeb] text-[#8f8f8f] font-mono uppercase text-[11px]">
+          <tr>
+            <th class="p-3.5">Resolution Label</th>
+            <th class="p-3.5">Dimensions (W × H)</th>
+            <th class="p-3.5">Megapixels</th>
+            <th class="p-3.5">Use Case</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-[#ebebeb] text-[#171717]">
+          {resolutions43.map((res) => (
+            <tr class="hover:bg-[#fafafa] transition-colors">
+              <td class="p-3.5 font-medium">{res.label}</td>
+              <td class="p-3.5 font-mono text-[#171717] font-semibold">{res.w} × {res.h}</td>
+              <td class="p-3.5 font-mono">{((res.w * res.h) / 1000000).toFixed(1)} MP</td>
+              <td class="p-3.5 text-[#4d4d4d]">{res.use}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </section>
+</BaseLayout>

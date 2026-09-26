@@ -1,0 +1,97 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { COMMON_RATIOS } from '../lib/aspect-ratio';
+import { PLATFORM_PRESETS } from '../lib/presets';
+---
+
+<BaseLayout
+  title="Ultimate Image Aspect Ratio Guide & Cheat Sheet - AspectRatioKit"
+  description="Comprehensive reference guide for all common image and video aspect ratios, resolutions, and social media dimensions."
+  canonicalPath="/image-aspect-ratio"
+  activeNav="/image-aspect-ratio"
+>
+  <div class="py-16 bg-[#fafafa] border-b border-[#ebebeb]">
+    <div class="max-w-4xl mx-auto px-4 text-center">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white border border-[#ebebeb] text-xs font-mono uppercase text-[#0070f3] mb-4">
+        <span>The Definitive Reference</span>
+      </div>
+      <h1 class="text-4xl sm:text-5xl font-semibold tracking-tight text-[#171717]">
+        Complete Aspect Ratio & Resolution Guide
+      </h1>
+      <p class="mt-4 text-base text-[#4d4d4d] max-w-2xl mx-auto">
+        Everything you need to know about standard image and video proportions, from 35mm photography to modern 9:16 vertical reels and cinematic IMAX.
+      </p>
+    </div>
+  </div>
+
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-16">
+    <!-- Quick Index Cards -->
+    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
+      {COMMON_RATIOS.map((item) => (
+        <a
+          href={`/${item.ratioW}-${item.ratioH}-calculator`}
+          class="p-3.5 rounded-lg bg-white border border-[#ebebeb] hover:border-[#171717] transition-all text-center group block whisper-shadow"
+        >
+          <div class="text-sm font-mono font-bold text-[#171717] group-hover:text-[#0070f3]">{item.ratioW}:{item.ratioH}</div>
+          <div class="text-[11px] font-mono text-[#8f8f8f] mt-0.5">{item.decimal.toFixed(2)}:1</div>
+          <div class="text-[11px] text-[#4d4d4d] mt-1 truncate">{item.name.split(' ')[1] || item.name}</div>
+        </a>
+      ))}
+    </div>
+
+    <!-- Complete Platform Presets Grid -->
+    <div>
+      <h2 class="text-2xl font-semibold text-[#171717] mb-2">Platform Dimensions Cheatsheet</h2>
+      <p class="text-sm text-[#4d4d4d] mb-6">Exact upload resolutions required by major social platforms and display hardware.</p>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        {PLATFORM_PRESETS.map((p) => (
+          <div class="bg-white rounded-lg border border-[#ebebeb] p-4 hover:border-[#171717] transition-all space-y-2 whisper-shadow">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-medium text-[#8f8f8f]">{p.platform}</span>
+              <span class="text-xs font-mono font-bold text-[#171717] px-2 py-0.5 rounded bg-[#fafafa] border border-[#ebebeb]">
+                {p.ratioLabel}
+              </span>
+            </div>
+            <div class="font-semibold text-sm text-[#171717]">{p.name}</div>
+            <div class="text-xs font-mono text-[#0070f3] font-semibold">{p.width} × {p.height} px</div>
+            <p class="text-xs text-[#4d4d4d] leading-relaxed">{p.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- The Oppenheimer & IMAX Format Feature Section -->
+    <div class="bg-white rounded-2xl border border-[#ebebeb] p-8 whisper-shadow space-y-6">
+      <div class="max-w-2xl">
+        <div class="text-xs font-mono uppercase text-[#7928ca] font-semibold mb-1">Cinematic Deep Dive</div>
+        <h3 class="text-xl sm:text-2xl font-semibold text-[#171717]">The Oppenheimer Aspect Ratio Paradox</h3>
+        <p class="text-sm text-[#4d4d4d] mt-2 leading-relaxed">
+          Director Christopher Nolan famously used multiple aspect ratios in <em>Oppenheimer</em> and <em>Interstellar</em>. Understanding why demonstrates the power of framing:
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2">
+        <div class="p-5 rounded-xl bg-[#fafafa] border border-[#ebebeb] space-y-3">
+          <div class="flex items-center justify-between">
+            <span class="font-semibold text-sm text-[#171717]">1.43:1 Full IMAX (70mm)</span>
+            <span class="text-xs font-mono text-[#7928ca] bg-white px-2 py-0.5 rounded border border-[#ebebeb]">Tall Frame</span>
+          </div>
+          <p class="text-xs text-[#4d4d4d] leading-relaxed">
+            Shot on 15-perforation 70mm film. Projects an immense vertical frame that occupies the entire peripheral vision in authentic 70mm IMAX theaters.
+          </p>
+        </div>
+
+        <div class="p-5 rounded-xl bg-[#fafafa] border border-[#ebebeb] space-y-3">
+          <div class="flex items-center justify-between">
+            <span class="font-semibold text-sm text-[#171717]">2.20:1 / 2.39:1 Standard Theatrical</span>
+            <span class="text-xs font-mono text-[#171717] bg-white px-2 py-0.5 rounded border border-[#ebebeb]">Widescreen Scope</span>
+          </div>
+          <p class="text-xs text-[#4d4d4d] leading-relaxed">
+            Standard multiplex theaters show the film in standard scope, cropping the top and bottom of the tall IMAX scenes (sometimes dubbed "Croppenheimer").
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</BaseLayout>

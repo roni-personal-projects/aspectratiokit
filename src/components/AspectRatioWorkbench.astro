@@ -1,0 +1,1369 @@
+---
+interface Props {
+  initialMode?: 'finder' | 'calculator' | 'resize' | 'crop' | 'solver';
+  defaultRatioW?: number;
+  defaultRatioH?: number;
+  defaultWidth?: number;
+  defaultHeight?: number;
+  title?: string;
+  subtitle?: string;
+}
+
+const {
+  initialMode = 'finder',
+  defaultRatioW = 16,
+  defaultRatioH = 9,
+  defaultWidth = 1920,
+  defaultHeight = 1080,
+  title,
+  subtitle,
+} = Astro.props;
+---
+
+<section id="workbench" class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+  <!-- Workbench Header -->
+  {title && (
+    <div class="mb-6 text-center">
+      <h2 class="text-2xl sm:text-3xl font-semibold tracking-tight text-[#171717]">{title}</h2>
+      {subtitle && <p class="text-sm text-[#4d4d4d] mt-1.5 max-w-2xl mx-auto">{subtitle}</p>}
+    </div>
+  )}
+
+  <div class="bg-[#ffffff] rounded-xl border border-[#ebebeb] whisper-shadow overflow-hidden">
+    <!-- Tool Navigation Bar -->
+    <div class="flex items-center gap-1 p-2 bg-[#fafafa] border-b border-[#ebebeb] overflow-x-auto no-scrollbar">
+      <button
+        type="button"
+        data-tool-tab="finder"
+        class={`tool-tab px-3.5 py-2 text-xs font-medium rounded-md transition-all flex items-center gap-1.5 whitespace-nowrap cursor-pointer ${
+          initialMode === 'finder' ? 'bg-[#ffffff] text-[#171717] shadow-xs font-semibold' : 'text-[#4d4d4d] hover:text-[#171717] hover:bg-[#ebebeb]/50'
+        }`}
+      >
+        <svg class="w-4 h-4 text-[#171717]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+        </svg>
+        <span>Image Ratio Finder</span>
+      </button>
+
+      <button
+        type="button"
+        data-tool-tab="calculator"
+        class={`tool-tab px-3.5 py-2 text-xs font-medium rounded-md transition-all flex items-center gap-1.5 whitespace-nowrap cursor-pointer ${
+          initialMode === 'calculator' ? 'bg-[#ffffff] text-[#171717] shadow-xs font-semibold' : 'text-[#4d4d4d] hover:text-[#171717] hover:bg-[#ebebeb]/50'
+        }`}
+      >
+        <svg class="w-4 h-4 text-[#171717]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
+        </svg>
+        <span>Aspect Calculator</span>
+      </button>
+
+      <button
+        type="button"
+        data-tool-tab="resize"
+        class={`tool-tab px-3.5 py-2 text-xs font-medium rounded-md transition-all flex items-center gap-1.5 whitespace-nowrap cursor-pointer ${
+          initialMode === 'resize' ? 'bg-[#ffffff] text-[#171717] shadow-xs font-semibold' : 'text-[#4d4d4d] hover:text-[#171717] hover:bg-[#ebebeb]/50'
+        }`}
+      >
+        <svg class="w-4 h-4 text-[#171717]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"></path>
+        </svg>
+        <span>Proportional Resizer</span>
+      </button>
+
+      <button
+        type="button"
+        data-tool-tab="crop"
+        class={`tool-tab px-3.5 py-2 text-xs font-medium rounded-md transition-all flex items-center gap-1.5 whitespace-nowrap cursor-pointer ${
+          initialMode === 'crop' ? 'bg-[#ffffff] text-[#171717] shadow-xs font-semibold' : 'text-[#4d4d4d] hover:text-[#171717] hover:bg-[#ebebeb]/50'
+        }`}
+      >
+        <svg class="w-4 h-4 text-[#171717]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
+        </svg>
+        <span>Crop & Framing</span>
+      </button>
+
+      <button
+        type="button"
+        data-tool-tab="solver"
+        class={`tool-tab px-3.5 py-2 text-xs font-medium rounded-md transition-all flex items-center gap-1.5 whitespace-nowrap cursor-pointer ${
+          initialMode === 'solver' ? 'bg-[#ffffff] text-[#171717] shadow-xs font-semibold' : 'text-[#4d4d4d] hover:text-[#171717] hover:bg-[#ebebeb]/50'
+        }`}
+      >
+        <svg class="w-4 h-4 text-[#171717]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"></path>
+        </svg>
+        <span>Width ↔ Height</span>
+      </button>
+    </div>
+
+    <!-- Main Workspace Grid -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-0 divide-y lg:divide-y-0 lg:divide-x divide-[#ebebeb]">
+      <!-- Left Panel: Controls & Inputs -->
+      <div class="lg:col-span-7 p-6 sm:p-8 space-y-6">
+        
+        <!-- MODE 1: IMAGE RATIO FINDER -->
+        <div id="panel-finder" class="tool-panel space-y-5">
+          <div>
+            <div class="flex items-center justify-between">
+              <label class="block text-xs font-mono uppercase tracking-wider text-[#171717] font-semibold">
+                Drop or Browse Any Image
+              </label>
+              <span class="text-[11px] font-mono text-[#8f8f8f]">Supports PNG, JPG, WebP, SVG, AVIF</span>
+            </div>
+            
+            <!-- Drag & Drop Zone -->
+            <div
+              id="image-dropzone"
+              class="mt-2 border-2 border-dashed border-[#ebebeb] hover:border-[#171717] transition-all rounded-lg p-6 text-center cursor-pointer bg-[#fafafa] hover:bg-[#ffffff] group relative"
+            >
+              <input type="file" id="image-file-input" accept="image/*" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
+              <div class="flex flex-col items-center justify-center pointer-events-none">
+                <div class="w-10 h-10 rounded-full bg-[#f2f2f2] group-hover:bg-[#ebebeb] flex items-center justify-center text-[#171717] mb-2 transition-colors">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
+                  </svg>
+                </div>
+                <p class="text-sm font-medium text-[#171717]">
+                  Drag and drop an image here, or <span class="text-[#0070f3] underline underline-offset-2">browse</span>
+                </p>
+                <p class="text-xs text-[#8f8f8f] mt-1">100% private. Stays directly on your machine.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Sample Images Quick Load -->
+          <div class="flex items-center gap-2 text-xs text-[#4d4d4d]">
+            <span class="text-[11px] font-mono text-[#8f8f8f]">Try sample:</span>
+            <button type="button" data-sample-size="1920x1080" class="sample-btn px-2 py-1 rounded bg-[#f2f2f2] hover:bg-[#ebebeb] text-[#171717] font-mono transition-colors">16:9 FHD</button>
+            <button type="button" data-sample-size="1080x1920" class="sample-btn px-2 py-1 rounded bg-[#f2f2f2] hover:bg-[#ebebeb] text-[#171717] font-mono transition-colors">9:16 Reel</button>
+            <button type="button" data-sample-size="1080x1080" class="sample-btn px-2 py-1 rounded bg-[#f2f2f2] hover:bg-[#ebebeb] text-[#171717] font-mono transition-colors">1:1 Square</button>
+            <button type="button" data-sample-size="2048x1536" class="sample-btn px-2 py-1 rounded bg-[#f2f2f2] hover:bg-[#ebebeb] text-[#171717] font-mono transition-colors">4:3 iPad</button>
+          </div>
+
+          <!-- Detected Specs Card -->
+          <div id="image-detected-card" class="bg-[#fafafa] rounded-lg border border-[#ebebeb] p-4 space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-mono font-medium text-[#8f8f8f] uppercase">Extracted Image Metrics</span>
+              <span id="detected-orientation-badge" class="px-2 py-0.5 rounded-full text-[11px] font-mono font-medium bg-[#ffffff] border border-[#ebebeb] text-[#171717]">
+                Landscape 🖥️
+              </span>
+            </div>
+
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-1">
+              <div class="bg-white p-2.5 rounded border border-[#ebebeb]">
+                <div class="text-[11px] text-[#8f8f8f] font-mono">Dimensions</div>
+                <div id="detected-dims" class="text-sm font-semibold text-[#171717] font-mono mt-0.5">1920 × 1080</div>
+              </div>
+              <div class="bg-white p-2.5 rounded border border-[#ebebeb]">
+                <div class="text-[11px] text-[#8f8f8f] font-mono">Aspect Ratio</div>
+                <div id="detected-ratio" class="text-sm font-semibold text-[#171717] font-mono mt-0.5">16:9</div>
+              </div>
+              <div class="bg-white p-2.5 rounded border border-[#ebebeb]">
+                <div class="text-[11px] text-[#8f8f8f] font-mono">Decimal Ratio</div>
+                <div id="detected-decimal" class="text-sm font-semibold text-[#171717] font-mono mt-0.5">1.78:1</div>
+              </div>
+              <div class="bg-white p-2.5 rounded border border-[#ebebeb]">
+                <div class="text-[11px] text-[#8f8f8f] font-mono">Megapixels</div>
+                <div id="detected-mp" class="text-sm font-semibold text-[#171717] font-mono mt-0.5">2.1 MP</div>
+              </div>
+            </div>
+
+            <!-- Action shortcuts to send image to Resizer or Cropper -->
+            <div class="pt-2 flex items-center gap-2">
+              <button
+                type="button"
+                id="send-to-crop-btn"
+                class="px-3 py-1.5 rounded-md bg-[#ffffff] border border-[#ebebeb] hover:border-[#171717] text-xs font-medium text-[#171717] transition-all cursor-pointer flex items-center gap-1.5"
+              >
+                <span>Calculate Crop</span>
+                <span class="text-[#8f8f8f]">→</span>
+              </button>
+              <button
+                type="button"
+                id="send-to-resize-btn"
+                class="px-3 py-1.5 rounded-md bg-[#ffffff] border border-[#ebebeb] hover:border-[#171717] text-xs font-medium text-[#171717] transition-all cursor-pointer flex items-center gap-1.5"
+              >
+                <span>Resize Proportionally</span>
+                <span class="text-[#8f8f8f]">→</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- MODE 2: ASPECT RATIO CALCULATOR -->
+        <div id="panel-calculator" class="tool-panel space-y-5 hidden">
+          <!-- Preset Selector Bar -->
+          <div>
+            <label class="block text-xs font-mono uppercase tracking-wider text-[#171717] font-semibold mb-2">
+              Standard Ratio Presets
+            </label>
+            <div class="flex flex-wrap gap-1.5">
+              <button type="button" data-preset="16:9" class="calc-preset-btn px-2.5 py-1 text-xs font-mono rounded border border-[#171717] bg-[#171717] text-white">16:9 HD</button>
+              <button type="button" data-preset="9:16" class="calc-preset-btn px-2.5 py-1 text-xs font-mono rounded border border-[#ebebeb] bg-white text-[#171717] hover:border-[#171717]">9:16 Reel</button>
+              <button type="button" data-preset="1:1" class="calc-preset-btn px-2.5 py-1 text-xs font-mono rounded border border-[#ebebeb] bg-white text-[#171717] hover:border-[#171717]">1:1 Square</button>
+              <button type="button" data-preset="4:3" class="calc-preset-btn px-2.5 py-1 text-xs font-mono rounded border border-[#ebebeb] bg-white text-[#171717] hover:border-[#171717]">4:3 Standard</button>
+              <button type="button" data-preset="3:2" class="calc-preset-btn px-2.5 py-1 text-xs font-mono rounded border border-[#ebebeb] bg-white text-[#171717] hover:border-[#171717]">3:2 DSLR</button>
+              <button type="button" data-preset="21:9" class="calc-preset-btn px-2.5 py-1 text-xs font-mono rounded border border-[#ebebeb] bg-white text-[#171717] hover:border-[#171717]">21:9 Ultrawide</button>
+              <button type="button" data-preset="4:5" class="calc-preset-btn px-2.5 py-1 text-xs font-mono rounded border border-[#ebebeb] bg-white text-[#171717] hover:border-[#171717]">4:5 Post</button>
+            </div>
+          </div>
+
+          <!-- Ratio Inputs (Width : Height) -->
+          <div class="p-4 rounded-lg bg-[#fafafa] border border-[#ebebeb] space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-mono uppercase text-[#171717] font-semibold">Aspect Ratio Proportion</span>
+              <span class="text-[11px] font-mono text-[#8f8f8f]">Simplified Ratio (W:H)</span>
+            </div>
+            <div class="grid grid-cols-2 gap-3 items-center">
+              <div>
+                <label for="input-ratio-w" class="block text-[11px] font-mono text-[#8f8f8f] mb-1">Ratio Width</label>
+                <input
+                  type="number"
+                  id="input-ratio-w"
+                  value={defaultRatioW}
+                  min="1"
+                  step="any"
+                  class="w-full h-10 px-3 rounded-md bg-white border border-[#ebebeb] focus:border-[#171717] focus:outline-none text-sm font-mono text-[#171717]"
+                />
+              </div>
+              <div>
+                <label for="input-ratio-h" class="block text-[11px] font-mono text-[#8f8f8f] mb-1">Ratio Height</label>
+                <input
+                  type="number"
+                  id="input-ratio-h"
+                  value={defaultRatioH}
+                  min="1"
+                  step="any"
+                  class="w-full h-10 px-3 rounded-md bg-white border border-[#ebebeb] focus:border-[#171717] focus:outline-none text-sm font-mono text-[#171717]"
+                />
+              </div>
+            </div>
+          </div>
+
+          <!-- Pixel Dimensions Inputs -->
+          <div class="p-4 rounded-lg bg-[#fafafa] border border-[#ebebeb] space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-mono uppercase text-[#171717] font-semibold">Pixel Dimensions</span>
+              <!-- Lock Aspect Ratio Toggle -->
+              <button
+                type="button"
+                id="btn-lock-aspect"
+                class="px-2.5 py-1 rounded text-xs font-mono flex items-center gap-1.5 transition-colors bg-[#171717] text-white"
+                data-locked="true"
+                title="When locked, changing width or height recalculates the other according to the ratio above"
+              >
+                <span id="lock-icon">🔒</span>
+                <span id="lock-text">Aspect Locked</span>
+              </button>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div>
+                <label for="input-pixel-w" class="block text-[11px] font-mono text-[#8f8f8f] mb-1">Width (px)</label>
+                <input
+                  type="number"
+                  id="input-pixel-w"
+                  value={defaultWidth}
+                  min="1"
+                  class="w-full h-10 px-3 rounded-md bg-white border border-[#ebebeb] focus:border-[#171717] focus:outline-none text-sm font-mono text-[#171717]"
+                />
+              </div>
+              <div>
+                <label for="input-pixel-h" class="block text-[11px] font-mono text-[#8f8f8f] mb-1">Height (px)</label>
+                <input
+                  type="number"
+                  id="input-pixel-h"
+                  value={defaultHeight}
+                  min="1"
+                  class="w-full h-10 px-3 rounded-md bg-white border border-[#ebebeb] focus:border-[#171717] focus:outline-none text-sm font-mono text-[#171717]"
+                />
+              </div>
+            </div>
+
+            <!-- Swap Dimensions Button -->
+            <div class="flex items-center justify-end pt-1">
+              <button
+                type="button"
+                id="btn-swap-dims"
+                class="px-2.5 py-1 text-xs font-mono rounded bg-white border border-[#ebebeb] hover:border-[#171717] text-[#171717] transition-colors flex items-center gap-1 cursor-pointer"
+              >
+                <span>Swap Dimensions ⇄</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- MODE 3: PROPORTIONAL RESIZE -->
+        <div id="panel-resize" class="tool-panel space-y-5 hidden">
+          <div>
+            <label class="block text-xs font-mono uppercase tracking-wider text-[#171717] font-semibold mb-2">
+              Original Base Dimensions
+            </label>
+            <div class="grid grid-cols-2 gap-3">
+              <div>
+                <span class="block text-[11px] font-mono text-[#8f8f8f] mb-1">Base Width (px)</span>
+                <input
+                  type="number"
+                  id="resize-orig-w"
+                  value={defaultWidth}
+                  class="w-full h-10 px-3 rounded-md bg-white border border-[#ebebeb] text-sm font-mono text-[#171717]"
+                />
+              </div>
+              <div>
+                <span class="block text-[11px] font-mono text-[#8f8f8f] mb-1">Base Height (px)</span>
+                <input
+                  type="number"
+                  id="resize-orig-h"
+                  value={defaultHeight}
+                  class="w-full h-10 px-3 rounded-md bg-white border border-[#ebebeb] text-sm font-mono text-[#171717]"
+                />
+              </div>
+            </div>
+          </div>
+
+          <!-- Scale Presets -->
+          <div class="p-4 rounded-lg bg-[#fafafa] border border-[#ebebeb] space-y-3">
+            <span class="text-xs font-mono uppercase text-[#171717] font-semibold block">Scale Multiplier</span>
+            <div class="flex flex-wrap gap-1.5">
+              <button type="button" data-scale="25" class="scale-btn px-2.5 py-1 text-xs font-mono rounded border border-[#ebebeb] bg-white text-[#171717] hover:border-[#171717]">25% (0.25x)</button>
+              <button type="button" data-scale="50" class="scale-btn px-2.5 py-1 text-xs font-mono rounded border border-[#171717] bg-[#171717] text-white">50% (0.5x)</button>
+              <button type="button" data-scale="75" class="scale-btn px-2.5 py-1 text-xs font-mono rounded border border-[#ebebeb] bg-white text-[#171717] hover:border-[#171717]">75% (0.75x)</button>
+              <button type="button" data-scale="150" class="scale-btn px-2.5 py-1 text-xs font-mono rounded border border-[#ebebeb] bg-white text-[#171717] hover:border-[#171717]">150% (1.5x)</button>
+              <button type="button" data-scale="200" class="scale-btn px-2.5 py-1 text-xs font-mono rounded border border-[#ebebeb] bg-white text-[#171717] hover:border-[#171717]">200% (2x)</button>
+              <button type="button" data-scale="400" class="scale-btn px-2.5 py-1 text-xs font-mono rounded border border-[#ebebeb] bg-white text-[#171717] hover:border-[#171717]">400% (4K/8K)</button>
+            </div>
+
+            <!-- Percentage Slider -->
+            <div class="pt-2">
+              <div class="flex items-center justify-between text-xs font-mono text-[#8f8f8f] mb-1">
+                <span>Custom Percentage:</span>
+                <span id="scale-slider-value" class="font-semibold text-[#171717]">50%</span>
+              </div>
+              <input
+                type="range"
+                id="resize-slider"
+                min="10"
+                max="300"
+                value="50"
+                class="w-full accent-[#171717] cursor-pointer"
+              />
+            </div>
+          </div>
+
+          <!-- Resized Target Specs -->
+          <div class="bg-[#fafafa] rounded-lg border border-[#ebebeb] p-4 space-y-2">
+            <span class="text-xs font-mono font-medium text-[#8f8f8f] uppercase">Resulting Resized Dimensions</span>
+            <div class="grid grid-cols-2 gap-3 pt-1">
+              <div class="bg-white p-3 rounded border border-[#ebebeb]">
+                <div class="text-[11px] text-[#8f8f8f] font-mono">New Dimensions</div>
+                <div id="resized-dims" class="text-base font-semibold text-[#171717] font-mono mt-0.5">960 × 540</div>
+              </div>
+              <div class="bg-white p-3 rounded border border-[#ebebeb]">
+                <div class="text-[11px] text-[#8f8f8f] font-mono">New Megapixels</div>
+                <div id="resized-mp" class="text-base font-semibold text-[#171717] font-mono mt-0.5">0.5 MP</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- MODE 4: CROP & FRAMING CALCULATOR -->
+        <div id="panel-crop" class="tool-panel space-y-5 hidden">
+          <div>
+            <label class="block text-xs font-mono uppercase tracking-wider text-[#171717] font-semibold mb-2">
+              Source Dimensions
+            </label>
+            <div class="grid grid-cols-2 gap-3">
+              <div>
+                <span class="block text-[11px] font-mono text-[#8f8f8f] mb-1">Current Width (px)</span>
+                <input
+                  type="number"
+                  id="crop-src-w"
+                  value={defaultWidth}
+                  class="w-full h-10 px-3 rounded-md bg-white border border-[#ebebeb] text-sm font-mono text-[#171717]"
+                />
+              </div>
+              <div>
+                <span class="block text-[11px] font-mono text-[#8f8f8f] mb-1">Current Height (px)</span>
+                <input
+                  type="number"
+                  id="crop-src-h"
+                  value={defaultHeight}
+                  class="w-full h-10 px-3 rounded-md bg-white border border-[#ebebeb] text-sm font-mono text-[#171717]"
+                />
+              </div>
+            </div>
+          </div>
+
+          <!-- Target Crop Ratio -->
+          <div class="p-4 rounded-lg bg-[#fafafa] border border-[#ebebeb] space-y-3">
+            <span class="text-xs font-mono uppercase text-[#171717] font-semibold block">Target Aspect Ratio</span>
+            <div class="flex flex-wrap gap-1.5">
+              <button type="button" data-crop-target="1:1" class="crop-preset-btn px-2.5 py-1 text-xs font-mono rounded border border-[#171717] bg-[#171717] text-white">1:1 Square</button>
+              <button type="button" data-crop-target="9:16" class="crop-preset-btn px-2.5 py-1 text-xs font-mono rounded border border-[#ebebeb] bg-white text-[#171717] hover:border-[#171717]">9:16 Reel</button>
+              <button type="button" data-crop-target="4:5" class="crop-preset-btn px-2.5 py-1 text-xs font-mono rounded border border-[#ebebeb] bg-white text-[#171717] hover:border-[#171717]">4:5 Instagram</button>
+              <button type="button" data-crop-target="16:9" class="crop-preset-btn px-2.5 py-1 text-xs font-mono rounded border border-[#ebebeb] bg-white text-[#171717] hover:border-[#171717]">16:9 HD</button>
+              <button type="button" data-crop-target="4:3" class="crop-preset-btn px-2.5 py-1 text-xs font-mono rounded border border-[#ebebeb] bg-white text-[#171717] hover:border-[#171717]">4:3 Standard</button>
+            </div>
+
+            <!-- Custom Target Ratio input -->
+            <div class="grid grid-cols-2 gap-3 pt-1">
+              <div>
+                <span class="block text-[11px] font-mono text-[#8f8f8f] mb-1">Target Ratio W</span>
+                <input
+                  type="number"
+                  id="crop-target-w"
+                  value="1"
+                  class="w-full h-9 px-3 rounded-md bg-white border border-[#ebebeb] text-sm font-mono text-[#171717]"
+                />
+              </div>
+              <div>
+                <span class="block text-[11px] font-mono text-[#8f8f8f] mb-1">Target Ratio H</span>
+                <input
+                  type="number"
+                  id="crop-target-h"
+                  value="1"
+                  class="w-full h-9 px-3 rounded-md bg-white border border-[#ebebeb] text-sm font-mono text-[#171717]"
+                />
+              </div>
+            </div>
+          </div>
+
+          <!-- Crop Math Output Card -->
+          <div class="bg-[#fafafa] rounded-lg border border-[#ebebeb] p-4 space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-mono font-medium text-[#8f8f8f] uppercase">Crop Calculation Breakdown</span>
+              <span id="crop-axis-tag" class="px-2 py-0.5 rounded text-[11px] font-mono bg-white border border-[#ebebeb] text-[#171717]">
+                Horizontal Crop (Trim Sides)
+              </span>
+            </div>
+
+            <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+              <div class="bg-white p-2.5 rounded border border-[#ebebeb]">
+                <div class="text-[11px] text-[#8f8f8f] font-mono">Cropped Frame</div>
+                <div id="crop-output-dims" class="text-sm font-semibold text-[#171717] font-mono mt-0.5">1080 × 1080</div>
+              </div>
+              <div class="bg-white p-2.5 rounded border border-[#ebebeb]">
+                <div class="text-[11px] text-[#8f8f8f] font-mono">Pixels Trimmed</div>
+                <div id="crop-output-trim" class="text-sm font-semibold text-[#ee0000] font-mono mt-0.5">840 px (420/side)</div>
+              </div>
+              <div class="bg-white p-2.5 rounded border border-[#ebebeb] col-span-2 sm:col-span-1">
+                <div class="text-[11px] text-[#8f8f8f] font-mono">Image Retained</div>
+                <div id="crop-output-percent" class="text-sm font-semibold text-[#171717] font-mono mt-0.5">56.3%</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- MODE 5: QUICK WIDTH <-> HEIGHT SOLVER -->
+        <div id="panel-solver" class="tool-panel space-y-5 hidden">
+          <div>
+            <label class="block text-xs font-mono uppercase tracking-wider text-[#171717] font-semibold mb-2">
+              Select Desired Aspect Ratio
+            </label>
+            <div class="flex flex-wrap gap-1.5">
+              <button type="button" data-solver-preset="16:9" class="solver-preset-btn px-2.5 py-1 text-xs font-mono rounded border border-[#171717] bg-[#171717] text-white">16:9</button>
+              <button type="button" data-solver-preset="9:16" class="solver-preset-btn px-2.5 py-1 text-xs font-mono rounded border border-[#ebebeb] bg-white text-[#171717] hover:border-[#171717]">9:16</button>
+              <button type="button" data-solver-preset="4:3" class="solver-preset-btn px-2.5 py-1 text-xs font-mono rounded border border-[#ebebeb] bg-white text-[#171717] hover:border-[#171717]">4:3</button>
+              <button type="button" data-solver-preset="1:1" class="solver-preset-btn px-2.5 py-1 text-xs font-mono rounded border border-[#ebebeb] bg-white text-[#171717] hover:border-[#171717]">1:1</button>
+              <button type="button" data-solver-preset="3:2" class="solver-preset-btn px-2.5 py-1 text-xs font-mono rounded border border-[#ebebeb] bg-white text-[#171717] hover:border-[#171717]">3:2</button>
+              <button type="button" data-solver-preset="21:9" class="solver-preset-btn px-2.5 py-1 text-xs font-mono rounded border border-[#ebebeb] bg-white text-[#171717] hover:border-[#171717]">21:9</button>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <!-- Box 1: Given Width -> Find Height -->
+            <div class="p-4 rounded-lg bg-[#fafafa] border border-[#ebebeb] space-y-3">
+              <div class="text-xs font-mono uppercase text-[#171717] font-semibold">Width-to-Height</div>
+              <p class="text-[11px] text-[#8f8f8f]">Enter your width to get the exact matching height:</p>
+              <div>
+                <label for="solver-width-input" class="block text-[11px] font-mono text-[#8f8f8f] mb-1">Enter Width (px)</label>
+                <input
+                  type="number"
+                  id="solver-width-input"
+                  value="1920"
+                  class="w-full h-10 px-3 rounded-md bg-white border border-[#ebebeb] text-sm font-mono text-[#171717]"
+                />
+              </div>
+              <div class="bg-white p-3 rounded border border-[#ebebeb]">
+                <div class="text-[11px] font-mono text-[#8f8f8f]">Calculated Height:</div>
+                <div id="solver-calc-height" class="text-lg font-mono font-semibold text-[#171717] mt-0.5">1080 px</div>
+              </div>
+            </div>
+
+            <!-- Box 2: Given Height -> Find Width -->
+            <div class="p-4 rounded-lg bg-[#fafafa] border border-[#ebebeb] space-y-3">
+              <div class="text-xs font-mono uppercase text-[#171717] font-semibold">Height-to-Width</div>
+              <p class="text-[11px] text-[#8f8f8f]">Enter your height to get the exact matching width:</p>
+              <div>
+                <label for="solver-height-input" class="block text-[11px] font-mono text-[#8f8f8f] mb-1">Enter Height (px)</label>
+                <input
+                  type="number"
+                  id="solver-height-input"
+                  value="1080"
+                  class="w-full h-10 px-3 rounded-md bg-white border border-[#ebebeb] text-sm font-mono text-[#171717]"
+                />
+              </div>
+              <div class="bg-white p-3 rounded border border-[#ebebeb]">
+                <div class="text-[11px] font-mono text-[#8f8f8f]">Calculated Width:</div>
+                <div id="solver-calc-width" class="text-lg font-mono font-semibold text-[#171717] mt-0.5">1920 px</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Developer & Designer Quick Copy Strip -->
+        <div class="pt-4 border-t border-[#ebebeb]">
+          <span class="block text-xs font-mono uppercase tracking-wider text-[#8f8f8f] font-semibold mb-2">
+            Developer Code & Dimensions Snippets
+          </span>
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
+            <button
+              type="button"
+              data-copy-type="css"
+              class="copy-btn p-2 rounded-md bg-[#fafafa] hover:bg-[#f2f2f2] border border-[#ebebeb] text-left transition-colors cursor-pointer group"
+            >
+              <div class="text-[10px] font-mono text-[#8f8f8f] group-hover:text-[#171717] flex items-center justify-between">
+                <span>CSS</span>
+                <span class="copy-icon">📋</span>
+              </div>
+              <div id="copy-code-css" class="text-xs font-mono text-[#171717] truncate mt-0.5">aspect-ratio: 16/9;</div>
+            </button>
+
+            <button
+              type="button"
+              data-copy-type="tailwind"
+              class="copy-btn p-2 rounded-md bg-[#fafafa] hover:bg-[#f2f2f2] border border-[#ebebeb] text-left transition-colors cursor-pointer group"
+            >
+              <div class="text-[10px] font-mono text-[#8f8f8f] group-hover:text-[#171717] flex items-center justify-between">
+                <span>Tailwind CSS</span>
+                <span class="copy-icon">📋</span>
+              </div>
+              <div id="copy-code-tailwind" class="text-xs font-mono text-[#171717] truncate mt-0.5">aspect-video</div>
+            </button>
+
+            <button
+              type="button"
+              data-copy-type="dims"
+              class="copy-btn p-2 rounded-md bg-[#fafafa] hover:bg-[#f2f2f2] border border-[#ebebeb] text-left transition-colors cursor-pointer group"
+            >
+              <div class="text-[10px] font-mono text-[#8f8f8f] group-hover:text-[#171717] flex items-center justify-between">
+                <span>Dimensions</span>
+                <span class="copy-icon">📋</span>
+              </div>
+              <div id="copy-code-dims" class="text-xs font-mono text-[#171717] truncate mt-0.5">1920 × 1080 px</div>
+            </button>
+
+            <button
+              type="button"
+              data-copy-type="html"
+              class="copy-btn p-2 rounded-md bg-[#fafafa] hover:bg-[#f2f2f2] border border-[#ebebeb] text-left transition-colors cursor-pointer group"
+            >
+              <div class="text-[10px] font-mono text-[#8f8f8f] group-hover:text-[#171717] flex items-center justify-between">
+                <span>HTML/SVG</span>
+                <span class="copy-icon">📋</span>
+              </div>
+              <div id="copy-code-html" class="text-xs font-mono text-[#171717] truncate mt-0.5">width="1920" height="1080"</div>
+            </button>
+          </div>
+          <div id="copy-toast" class="text-xs font-mono text-emerald-600 mt-1.5 h-4 opacity-0 transition-opacity">
+            ✓ Copied to clipboard
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Right Panel: Live Proportional Visualizer Canvas -->
+      <div class="lg:col-span-5 p-6 sm:p-8 bg-[#fafafa] flex flex-col justify-between space-y-6">
+        <div>
+          <!-- Visualizer Controls -->
+          <div class="flex items-center justify-between mb-3">
+            <div class="flex items-center gap-1.5">
+              <span class="w-2 h-2 rounded-full bg-[#171717]"></span>
+              <span class="text-xs font-mono uppercase tracking-wider text-[#171717] font-semibold">Live Shape Visualizer</span>
+            </div>
+            
+            <div class="flex items-center gap-2">
+              <!-- Rule of thirds toggle -->
+              <button
+                type="button"
+                id="btn-toggle-grid"
+                class="px-2 py-1 rounded text-[11px] font-mono bg-white border border-[#ebebeb] text-[#4d4d4d] hover:text-[#171717] transition-colors"
+                title="Toggle Rule of Thirds grid"
+              >
+                Grid 📐
+              </button>
+              <!-- Contrast BG toggle -->
+              <button
+                type="button"
+                id="btn-toggle-theme"
+                class="px-2 py-1 rounded text-[11px] font-mono bg-white border border-[#ebebeb] text-[#4d4d4d] hover:text-[#171717] transition-colors"
+                title="Toggle visualizer background"
+              >
+                🌓
+              </button>
+            </div>
+          </div>
+
+          <!-- Canvas Container -->
+          <div
+            id="visualizer-stage"
+            class="w-full h-80 rounded-lg border border-[#ebebeb] bg-[#ffffff] relative flex items-center justify-center p-4 overflow-hidden select-none transition-colors"
+          >
+            <!-- Dynamic Proportional Shape Box -->
+            <div
+              id="shape-box"
+              class="relative border-2 border-[#171717] bg-[#171717]/5 flex flex-col items-center justify-center transition-all duration-200 overflow-hidden shadow-sm"
+              style="width: 100%; height: 56.25%;"
+            >
+              <!-- Rule of Thirds Lines -->
+              <div id="thirds-grid" class="absolute inset-0 pointer-events-none grid grid-cols-3 grid-rows-3 hidden opacity-40">
+                <div class="border-r border-b border-[#171717]"></div>
+                <div class="border-r border-b border-[#171717]"></div>
+                <div class="border-b border-[#171717]"></div>
+                <div class="border-r border-b border-[#171717]"></div>
+                <div class="border-r border-b border-[#171717]"></div>
+                <div class="border-b border-[#171717]"></div>
+                <div class="border-r border-[#171717]"></div>
+                <div class="border-r border-[#171717]"></div>
+                <div></div>
+              </div>
+
+              <!-- Crop Trim Shade Overlay (Shown in Crop Mode) -->
+              <div id="crop-overlay-left" class="absolute left-0 top-0 bottom-0 bg-[#ee0000]/15 border-r border-[#ee0000] hidden pointer-events-none"></div>
+              <div id="crop-overlay-right" class="absolute right-0 top-0 bottom-0 bg-[#ee0000]/15 border-l border-[#ee0000] hidden pointer-events-none"></div>
+              <div id="crop-overlay-top" class="absolute top-0 left-0 right-0 bg-[#ee0000]/15 border-b border-[#ee0000] hidden pointer-events-none"></div>
+              <div id="crop-overlay-bottom" class="absolute bottom-0 left-0 right-0 bg-[#ee0000]/15 border-t border-[#ee0000] hidden pointer-events-none"></div>
+
+              <!-- Center Info Badge -->
+              <div class="z-10 text-center px-2 py-1 rounded bg-[#ffffff]/90 backdrop-blur-xs border border-[#ebebeb] shadow-xs">
+                <div id="vis-ratio-label" class="text-sm font-mono font-bold text-[#171717]">16:9</div>
+                <div id="vis-decimal-label" class="text-[11px] font-mono text-[#8f8f8f]">1.78:1</div>
+              </div>
+
+              <!-- Width dimension tag -->
+              <div class="absolute bottom-1 right-2 text-[10px] font-mono text-[#8f8f8f] bg-[#ffffff]/70 px-1 rounded pointer-events-none">
+                <span id="vis-dim-tag">1920 × 1080</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Visualizer Summary & Client-Side Image Download Button -->
+        <div class="space-y-3">
+          <div class="flex items-center justify-between text-xs font-mono text-[#4d4d4d]">
+            <span>Orientation:</span>
+            <span id="vis-orientation-text" class="font-semibold text-[#171717]">Landscape (Widescreen)</span>
+          </div>
+          <div class="flex items-center justify-between text-xs font-mono text-[#4d4d4d]">
+            <span>Display Scale:</span>
+            <span id="vis-scale-text" class="font-semibold text-[#171717]">Exact Proportional Match</span>
+          </div>
+
+          <!-- In-Browser Image Action (Hidden if no user image loaded) -->
+          <div id="image-export-block" class="pt-2">
+            <button
+              type="button"
+              id="btn-download-image"
+              class="w-full py-2.5 px-4 rounded-md bg-[#171717] hover:bg-[#333333] text-white text-xs font-medium transition-colors flex items-center justify-center gap-2 cursor-pointer shadow-xs"
+            >
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+              </svg>
+              <span>Download Processed Image (In-Browser)</span>
+            </button>
+            <p class="text-[10px] text-center text-[#8f8f8f] mt-1 font-mono">Rendered via client-side HTML5 Canvas. Zero server uploads.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Client-side script handling all math and interactive behaviors -->
+<script>
+  import { analyzeDimensions, calculateCrop, calculateHeight, calculateWidth, COMMON_RATIOS } from '../lib/aspect-ratio';
+
+  // State
+  let currentWidth = 1920;
+  let currentHeight = 1080;
+  let ratioW = 16;
+  let ratioH = 9;
+  let isAspectLocked = true;
+  let currentTool = 'finder';
+  let isGridVisible = false;
+  let isDarkStage = false;
+  let uploadedImageObj: HTMLImageElement | null = null;
+  let uploadedFileName = 'aspect-ratio-kit-export';
+
+  // Elements
+  const toolTabs = document.querySelectorAll('.tool-tab');
+  const toolPanels = document.querySelectorAll('.tool-panel');
+
+  // Finder elements
+  const dropzone = document.getElementById('image-dropzone');
+  const fileInput = document.getElementById('image-file-input') as HTMLInputElement | null;
+  const detectedDims = document.getElementById('detected-dims');
+  const detectedRatio = document.getElementById('detected-ratio');
+  const detectedDecimal = document.getElementById('detected-decimal');
+  const detectedMp = document.getElementById('detected-mp');
+  const detectedBadge = document.getElementById('detected-orientation-badge');
+  const sendToCropBtn = document.getElementById('send-to-crop-btn');
+  const sendToResizeBtn = document.getElementById('send-to-resize-btn');
+  const sampleBtns = document.querySelectorAll('.sample-btn');
+
+  // Calculator elements
+  const inputRatioW = document.getElementById('input-ratio-w') as HTMLInputElement | null;
+  const inputRatioH = document.getElementById('input-ratio-h') as HTMLInputElement | null;
+  const inputPixelW = document.getElementById('input-pixel-w') as HTMLInputElement | null;
+  const inputPixelH = document.getElementById('input-pixel-h') as HTMLInputElement | null;
+  const btnLockAspect = document.getElementById('btn-lock-aspect');
+  const lockIcon = document.getElementById('lock-icon');
+  const lockText = document.getElementById('lock-text');
+  const btnSwapDims = document.getElementById('btn-swap-dims');
+  const calcPresetBtns = document.querySelectorAll('.calc-preset-btn');
+
+  // Resize elements
+  const resizeOrigW = document.getElementById('resize-orig-w') as HTMLInputElement | null;
+  const resizeOrigH = document.getElementById('resize-orig-h') as HTMLInputElement | null;
+  const resizeSlider = document.getElementById('resize-slider') as HTMLInputElement | null;
+  const scaleSliderValue = document.getElementById('scale-slider-value');
+  const resizedDims = document.getElementById('resized-dims');
+  const resizedMp = document.getElementById('resized-mp');
+  const scaleBtns = document.querySelectorAll('.scale-btn');
+
+  // Crop elements
+  const cropSrcW = document.getElementById('crop-src-w') as HTMLInputElement | null;
+  const cropSrcH = document.getElementById('crop-src-h') as HTMLInputElement | null;
+  const cropTargetW = document.getElementById('crop-target-w') as HTMLInputElement | null;
+  const cropTargetH = document.getElementById('crop-target-h') as HTMLInputElement | null;
+  const cropOutputDims = document.getElementById('crop-output-dims');
+  const cropOutputTrim = document.getElementById('crop-output-trim');
+  const cropOutputPercent = document.getElementById('crop-output-percent');
+  const cropAxisTag = document.getElementById('crop-axis-tag');
+  const cropPresetBtns = document.querySelectorAll('.crop-preset-btn');
+  const cropOverlayLeft = document.getElementById('crop-overlay-left');
+  const cropOverlayRight = document.getElementById('crop-overlay-right');
+  const cropOverlayTop = document.getElementById('crop-overlay-top');
+  const cropOverlayBottom = document.getElementById('crop-overlay-bottom');
+
+  // Solver elements
+  const solverWidthInput = document.getElementById('solver-width-input') as HTMLInputElement | null;
+  const solverHeightInput = document.getElementById('solver-height-input') as HTMLInputElement | null;
+  const solverCalcHeight = document.getElementById('solver-calc-height');
+  const solverCalcWidth = document.getElementById('solver-calc-width');
+  const solverPresetBtns = document.querySelectorAll('.solver-preset-btn');
+  let solverRatioW = 16;
+  let solverRatioH = 9;
+
+  // Visualizer elements
+  const visualizerStage = document.getElementById('visualizer-stage');
+  const shapeBox = document.getElementById('shape-box');
+  const thirdsGrid = document.getElementById('thirds-grid');
+  const visRatioLabel = document.getElementById('vis-ratio-label');
+  const visDecimalLabel = document.getElementById('vis-decimal-label');
+  const visDimTag = document.getElementById('vis-dim-tag');
+  const visOrientationText = document.getElementById('vis-orientation-text');
+  const btnToggleGrid = document.getElementById('btn-toggle-grid');
+  const btnToggleTheme = document.getElementById('btn-toggle-theme');
+  const btnDownloadImage = document.getElementById('btn-download-image');
+
+  // Copy elements
+  const copyBtns = document.querySelectorAll('.copy-btn');
+  const copyCodeCss = document.getElementById('copy-code-css');
+  const copyCodeTailwind = document.getElementById('copy-code-tailwind');
+  const copyCodeDims = document.getElementById('copy-code-dims');
+  const copyCodeHtml = document.getElementById('copy-code-html');
+  const copyToast = document.getElementById('copy-toast');
+
+  // Initialize tool tab switching
+  function switchTab(tabId: string) {
+    currentTool = tabId;
+    toolTabs.forEach((btn) => {
+      const match = (btn as HTMLElement).dataset.toolTab === tabId;
+      if (match) {
+        btn.classList.remove('text-[#4d4d4d]');
+        btn.classList.add('bg-[#ffffff]', 'text-[#171717]', 'shadow-xs', 'font-semibold');
+      } else {
+        btn.classList.add('text-[#4d4d4d]');
+        btn.classList.remove('bg-[#ffffff]', 'text-[#171717]', 'shadow-xs', 'font-semibold');
+      }
+    });
+
+    toolPanels.forEach((panel) => {
+      if (panel.id === `panel-${tabId}`) {
+        panel.classList.remove('hidden');
+      } else {
+        panel.classList.add('hidden');
+      }
+    });
+
+    // Update crop overlays visibility
+    if (tabId === 'crop') {
+      updateCropDisplay();
+    } else {
+      hideCropOverlays();
+    }
+  }
+
+  toolTabs.forEach((tab) => {
+    tab.addEventListener('click', () => {
+      const target = (tab as HTMLElement).dataset.toolTab;
+      if (target) switchTab(target);
+    });
+  });
+
+  // Master update visualizer & code snippets
+  function updateAll(w: number, h: number, rW?: number, rH?: number) {
+    currentWidth = Math.max(1, Math.round(w));
+    currentHeight = Math.max(1, Math.round(h));
+
+    const analysis = analyzeDimensions(currentWidth, currentHeight);
+    if (rW !== undefined && rH !== undefined) {
+      ratioW = rW;
+      ratioH = rH;
+    } else {
+      ratioW = analysis.ratioW;
+      ratioH = analysis.ratioH;
+    }
+
+    // Update Finder view
+    if (detectedDims) detectedDims.textContent = `${currentWidth} × ${currentHeight}`;
+    if (detectedRatio) detectedRatio.textContent = analysis.formattedRatio;
+    if (detectedDecimal) detectedDecimal.textContent = analysis.decimalString;
+    if (detectedMp) detectedMp.textContent = analysis.megapixels;
+    if (detectedBadge) {
+      const orientationMap = {
+        landscape: 'Landscape 🖥️',
+        portrait: 'Portrait 📱',
+        square: 'Square ⏹️',
+      };
+      detectedBadge.textContent = orientationMap[analysis.orientation];
+    }
+
+    // Update Calculator inputs
+    if (inputPixelW && document.activeElement !== inputPixelW) inputPixelW.value = String(currentWidth);
+    if (inputPixelH && document.activeElement !== inputPixelH) inputPixelH.value = String(currentHeight);
+    if (inputRatioW && document.activeElement !== inputRatioW) inputRatioW.value = String(ratioW);
+    if (inputRatioH && document.activeElement !== inputRatioH) inputRatioH.value = String(ratioH);
+
+    // Update Resizer base inputs
+    if (resizeOrigW) resizeOrigW.value = String(currentWidth);
+    if (resizeOrigH) resizeOrigH.value = String(currentHeight);
+    updateResizeCalculation();
+
+    // Update Crop source inputs
+    if (cropSrcW) cropSrcW.value = String(currentWidth);
+    if (cropSrcH) cropSrcH.value = String(currentHeight);
+    updateCropDisplay();
+
+    // Update Quick Solver
+    updateSolverDisplay();
+
+    // Update Proportional Shape Visualizer
+    updateShapeVisualizer(currentWidth, currentHeight, analysis);
+
+    // Update Code Snippets
+    updateCodeSnippets(currentWidth, currentHeight, ratioW, ratioH);
+  }
+
+  function updateShapeVisualizer(w: number, h: number, analysis: any) {
+    if (!shapeBox || !visualizerStage) return;
+
+    const stageWidth = visualizerStage.clientWidth - 32;
+    const stageHeight = visualizerStage.clientHeight - 32;
+
+    const ratio = w / h;
+    let targetBoxW = stageWidth;
+    let targetBoxH = targetBoxW / ratio;
+
+    if (targetBoxH > stageHeight) {
+      targetBoxH = stageHeight;
+      targetBoxW = targetBoxH * ratio;
+    }
+
+    shapeBox.style.width = `${Math.round(targetBoxW)}px`;
+    shapeBox.style.height = `${Math.round(targetBoxH)}px`;
+
+    if (visRatioLabel) visRatioLabel.textContent = `${ratioW}:${ratioH}`;
+    if (visDecimalLabel) visDecimalLabel.textContent = analysis.decimalString;
+    if (visDimTag) visDimTag.textContent = `${w} × ${h}`;
+    if (visOrientationText) {
+      visOrientationText.textContent = `${analysis.orientation.toUpperCase()} (${analysis.decimalString})`;
+    }
+  }
+
+  function updateCodeSnippets(w: number, h: number, rW: number, rH: number) {
+    if (copyCodeCss) copyCodeCss.textContent = `aspect-ratio: ${rW}/${rH};`;
+    if (copyCodeDims) copyCodeDims.textContent = `${w} × ${h} px`;
+    if (copyCodeHtml) copyCodeHtml.textContent = `width="${w}" height="${h}"`;
+
+    let twClass = `aspect-[${rW}/${rH}]`;
+    if (rW === 16 && rH === 9) twClass = 'aspect-video';
+    else if (rW === 1 && rH === 1) twClass = 'aspect-square';
+    else if (rW === 9 && rH === 16) twClass = 'aspect-9/16';
+    else if (rW === 4 && rH === 3) twClass = 'aspect-4/3';
+    if (copyCodeTailwind) copyCodeTailwind.textContent = twClass;
+  }
+
+  // Handle Drag & Drop / File Upload
+  if (dropzone && fileInput) {
+    dropzone.addEventListener('click', () => fileInput.click());
+
+    dropzone.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      dropzone.classList.add('border-[#171717]', 'bg-[#f2f2f2]');
+    });
+
+    dropzone.addEventListener('dragleave', () => {
+      dropzone.classList.remove('border-[#171717]', 'bg-[#f2f2f2]');
+    });
+
+    dropzone.addEventListener('drop', (e) => {
+      e.preventDefault();
+      dropzone.classList.remove('border-[#171717]', 'bg-[#f2f2f2]');
+      if (e.dataTransfer && e.dataTransfer.files.length > 0) {
+        processImageFile(e.dataTransfer.files[0]);
+      }
+    });
+
+    fileInput.addEventListener('change', (e) => {
+      const target = e.target as HTMLInputElement;
+      if (target.files && target.files.length > 0) {
+        processImageFile(target.files[0]);
+      }
+    });
+  }
+
+  function processImageFile(file: File) {
+    if (!file.type.startsWith('image/')) {
+      alert('Please upload an image file (PNG, JPG, WebP, etc.)');
+      return;
+    }
+
+    uploadedFileName = file.name.replace(/\.[^/.]+$/, '');
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      const img = new Image();
+      img.onload = () => {
+        uploadedImageObj = img;
+        updateAll(img.naturalWidth, img.naturalHeight);
+      };
+      img.src = event.target?.result as string;
+    };
+    reader.readAsDataURL(file);
+  }
+
+  // Sample Buttons
+  sampleBtns.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const size = (btn as HTMLElement).dataset.sampleSize;
+      if (size) {
+        const [w, h] = size.split('x').map(Number);
+        updateAll(w, h);
+      }
+    });
+  });
+
+  // Send to tools buttons
+  if (sendToCropBtn) {
+    sendToCropBtn.addEventListener('click', () => switchTab('crop'));
+  }
+  if (sendToResizeBtn) {
+    sendToResizeBtn.addEventListener('click', () => switchTab('resize'));
+  }
+
+  // Calculator Lock Toggle
+  if (btnLockAspect) {
+    btnLockAspect.addEventListener('click', () => {
+      isAspectLocked = !isAspectLocked;
+      btnLockAspect.dataset.locked = String(isAspectLocked);
+      if (isAspectLocked) {
+        btnLockAspect.classList.remove('bg-white', 'text-[#171717]', 'border');
+        btnLockAspect.classList.add('bg-[#171717]', 'text-white');
+        if (lockIcon) lockIcon.textContent = '🔒';
+        if (lockText) lockText.textContent = 'Aspect Locked';
+      } else {
+        btnLockAspect.classList.remove('bg-[#171717]', 'text-white');
+        btnLockAspect.classList.add('bg-white', 'text-[#171717]', 'border', 'border-[#ebebeb]');
+        if (lockIcon) lockIcon.textContent = '🔓';
+        if (lockText) lockText.textContent = 'Unlocked';
+      }
+    });
+  }
+
+  // Calculator inputs event listeners
+  if (inputPixelW) {
+    inputPixelW.addEventListener('input', () => {
+      const w = Number(inputPixelW.value) || 1;
+      if (isAspectLocked && ratioW && ratioH) {
+        const h = calculateHeight(w, ratioW, ratioH);
+        updateAll(w, h, ratioW, ratioH);
+      } else {
+        updateAll(w, currentHeight);
+      }
+    });
+  }
+
+  if (inputPixelH) {
+    inputPixelH.addEventListener('input', () => {
+      const h = Number(inputPixelH.value) || 1;
+      if (isAspectLocked && ratioW && ratioH) {
+        const w = calculateWidth(h, ratioW, ratioH);
+        updateAll(w, h, ratioW, ratioH);
+      } else {
+        updateAll(currentWidth, h);
+      }
+    });
+  }
+
+  if (inputRatioW || inputRatioH) {
+    const handleRatioChange = () => {
+      const rW = Number(inputRatioW?.value) || 1;
+      const rH = Number(inputRatioH?.value) || 1;
+      ratioW = rW;
+      ratioH = rH;
+      if (isAspectLocked) {
+        const newH = calculateHeight(currentWidth, ratioW, ratioH);
+        updateAll(currentWidth, newH, ratioW, ratioH);
+      } else {
+        updateAll(currentWidth, currentHeight, ratioW, ratioH);
+      }
+    };
+    inputRatioW?.addEventListener('input', handleRatioChange);
+    inputRatioH?.addEventListener('input', handleRatioChange);
+  }
+
+  // Swap Dimensions
+  if (btnSwapDims) {
+    btnSwapDims.addEventListener('click', () => {
+      updateAll(currentHeight, currentWidth, ratioH, ratioW);
+    });
+  }
+
+  // Preset Buttons
+  calcPresetBtns.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      calcPresetBtns.forEach((b) => {
+        b.classList.remove('bg-[#171717]', 'text-white', 'border-[#171717]');
+        b.classList.add('bg-white', 'text-[#171717]', 'border-[#ebebeb]');
+      });
+      btn.classList.remove('bg-white', 'text-[#171717]', 'border-[#ebebeb]');
+      btn.classList.add('bg-[#171717]', 'text-white', 'border-[#171717]');
+
+      const presetStr = (btn as HTMLElement).dataset.preset;
+      if (presetStr) {
+        const [pW, pH] = presetStr.split(':').map(Number);
+        ratioW = pW;
+        ratioH = pH;
+        const newH = calculateHeight(currentWidth, ratioW, ratioH);
+        updateAll(currentWidth, newH, ratioW, ratioH);
+      }
+    });
+  });
+
+  // Resizer Logic
+  function updateResizeCalculation() {
+    const origW = Number(resizeOrigW?.value) || currentWidth;
+    const origH = Number(resizeOrigH?.value) || currentHeight;
+    const percent = Number(resizeSlider?.value) || 50;
+
+    const factor = percent / 100;
+    const newW = Math.max(1, Math.round(origW * factor));
+    const newH = Math.max(1, Math.round(origH * factor));
+    const mp = ((newW * newH) / 1_000_000).toFixed(1) + ' MP';
+
+    if (scaleSliderValue) scaleSliderValue.textContent = `${percent}% (${factor.toFixed(2)}x)`;
+    if (resizedDims) resizedDims.textContent = `${newW} × ${newH}`;
+    if (resizedMp) resizedMp.textContent = mp;
+  }
+
+  if (resizeSlider) {
+    resizeSlider.addEventListener('input', () => {
+      updateResizeCalculation();
+    });
+  }
+
+  scaleBtns.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      scaleBtns.forEach((b) => {
+        b.classList.remove('bg-[#171717]', 'text-white', 'border-[#171717]');
+        b.classList.add('bg-white', 'text-[#171717]', 'border-[#ebebeb]');
+      });
+      btn.classList.remove('bg-white', 'text-[#171717]', 'border-[#ebebeb]');
+      btn.classList.add('bg-[#171717]', 'text-white', 'border-[#171717]');
+
+      const s = Number((btn as HTMLElement).dataset.scale);
+      if (resizeSlider) {
+        resizeSlider.value = String(s);
+        updateResizeCalculation();
+      }
+    });
+  });
+
+  // Crop Logic
+  function updateCropDisplay() {
+    const srcW = Number(cropSrcW?.value) || currentWidth;
+    const srcH = Number(cropSrcH?.value) || currentHeight;
+    const targetW = Number(cropTargetW?.value) || 1;
+    const targetH = Number(cropTargetH?.value) || 1;
+
+    const crop = calculateCrop(srcW, srcH, targetW, targetH);
+
+    if (cropOutputDims) cropOutputDims.textContent = `${crop.cropWidth} × ${crop.cropHeight}`;
+    if (cropOutputTrim) {
+      if (crop.cropAxis === 'horizontal') {
+        cropOutputTrim.textContent = `${crop.trimWidth} px (${crop.trimLeft}px/side)`;
+      } else if (crop.cropAxis === 'vertical') {
+        cropOutputTrim.textContent = `${crop.trimHeight} px (${crop.trimTop}px top/bot)`;
+      } else {
+        cropOutputTrim.textContent = `0 px (Exact match)`;
+      }
+    }
+    if (cropOutputPercent) cropOutputPercent.textContent = `${crop.percentRetained}%`;
+    if (cropAxisTag) {
+      if (crop.cropAxis === 'horizontal') cropAxisTag.textContent = 'Horizontal Crop (Trim Left & Right)';
+      else if (crop.cropAxis === 'vertical') cropAxisTag.textContent = 'Vertical Crop (Trim Top & Bottom)';
+      else cropAxisTag.textContent = 'No Crop Needed (100% Match)';
+    }
+
+    // Update Visual Crop Overlays on Shape Box
+    if (currentTool === 'crop' && shapeBox) {
+      if (crop.cropAxis === 'horizontal') {
+        const trimRatio = crop.trimLeft / srcW;
+        const trimWidthPx = Math.round(shapeBox.clientWidth * trimRatio);
+        if (cropOverlayLeft) {
+          cropOverlayLeft.style.width = `${trimWidthPx}px`;
+          cropOverlayLeft.classList.remove('hidden');
+        }
+        if (cropOverlayRight) {
+          cropOverlayRight.style.width = `${trimWidthPx}px`;
+          cropOverlayRight.classList.remove('hidden');
+        }
+        cropOverlayTop?.classList.add('hidden');
+        cropOverlayBottom?.classList.add('hidden');
+      } else if (crop.cropAxis === 'vertical') {
+        const trimRatio = crop.trimTop / srcH;
+        const trimHeightPx = Math.round(shapeBox.clientHeight * trimRatio);
+        if (cropOverlayTop) {
+          cropOverlayTop.style.height = `${trimHeightPx}px`;
+          cropOverlayTop.classList.remove('hidden');
+        }
+        if (cropOverlayBottom) {
+          cropOverlayBottom.style.height = `${trimHeightPx}px`;
+          cropOverlayBottom.classList.remove('hidden');
+        }
+        cropOverlayLeft?.classList.add('hidden');
+        cropOverlayRight?.classList.add('hidden');
+      } else {
+        hideCropOverlays();
+      }
+    }
+  }
+
+  function hideCropOverlays() {
+    cropOverlayLeft?.classList.add('hidden');
+    cropOverlayRight?.classList.add('hidden');
+    cropOverlayTop?.classList.add('hidden');
+    cropOverlayBottom?.classList.add('hidden');
+  }
+
+  cropPresetBtns.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      cropPresetBtns.forEach((b) => {
+        b.classList.remove('bg-[#171717]', 'text-white', 'border-[#171717]');
+        b.classList.add('bg-white', 'text-[#171717]', 'border-[#ebebeb]');
+      });
+      btn.classList.remove('bg-white', 'text-[#171717]', 'border-[#ebebeb]');
+      btn.classList.add('bg-[#171717]', 'text-white', 'border-[#171717]');
+
+      const target = (btn as HTMLElement).dataset.cropTarget;
+      if (target) {
+        const [cW, cH] = target.split(':').map(Number);
+        if (cropTargetW) cropTargetW.value = String(cW);
+        if (cropTargetH) cropTargetH.value = String(cH);
+        updateCropDisplay();
+      }
+    });
+  });
+
+  cropTargetW?.addEventListener('input', updateCropDisplay);
+  cropTargetH?.addEventListener('input', updateCropDisplay);
+  cropSrcW?.addEventListener('input', updateCropDisplay);
+  cropSrcH?.addEventListener('input', updateCropDisplay);
+
+  // Quick Solver Logic
+  function updateSolverDisplay() {
+    const w = Number(solverWidthInput?.value) || 1920;
+    const h = Number(solverHeightInput?.value) || 1080;
+
+    const calcH = calculateHeight(w, solverRatioW, solverRatioH);
+    const calcW = calculateWidth(h, solverRatioW, solverRatioH);
+
+    if (solverCalcHeight) solverCalcHeight.textContent = `${calcH} px`;
+    if (solverCalcWidth) solverCalcWidth.textContent = `${calcW} px`;
+  }
+
+  solverWidthInput?.addEventListener('input', updateSolverDisplay);
+  solverHeightInput?.addEventListener('input', updateSolverDisplay);
+
+  solverPresetBtns.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      solverPresetBtns.forEach((b) => {
+        b.classList.remove('bg-[#171717]', 'text-white', 'border-[#171717]');
+        b.classList.add('bg-white', 'text-[#171717]', 'border-[#ebebeb]');
+      });
+      btn.classList.remove('bg-white', 'text-[#171717]', 'border-[#ebebeb]');
+      btn.classList.add('bg-[#171717]', 'text-white', 'border-[#171717]');
+
+      const p = (btn as HTMLElement).dataset.solverPreset;
+      if (p) {
+        const [sW, sH] = p.split(':').map(Number);
+        solverRatioW = sW;
+        solverRatioH = sH;
+        updateSolverDisplay();
+      }
+    });
+  });
+
+  // Visualizer Toggles (Grid & Theme)
+  if (btnToggleGrid) {
+    btnToggleGrid.addEventListener('click', () => {
+      isGridVisible = !isGridVisible;
+      if (isGridVisible) {
+        thirdsGrid?.classList.remove('hidden');
+        btnToggleGrid.classList.add('bg-[#171717]', 'text-white');
+      } else {
+        thirdsGrid?.classList.add('hidden');
+        btnToggleGrid.classList.remove('bg-[#171717]', 'text-white');
+      }
+    });
+  }
+
+  if (btnToggleTheme) {
+    btnToggleTheme.addEventListener('click', () => {
+      isDarkStage = !isDarkStage;
+      if (isDarkStage) {
+        visualizerStage?.classList.remove('bg-[#ffffff]');
+        visualizerStage?.classList.add('bg-[#171717]');
+        shapeBox?.classList.remove('border-[#171717]', 'bg-[#171717]/5');
+        shapeBox?.classList.add('border-white', 'bg-white/10');
+      } else {
+        visualizerStage?.classList.remove('bg-[#171717]');
+        visualizerStage?.classList.add('bg-[#ffffff]');
+        shapeBox?.classList.remove('border-white', 'bg-white/10');
+        shapeBox?.classList.add('border-[#171717]', 'bg-[#171717]/5');
+      }
+    });
+  }
+
+  // Client-Side Canvas Image Export / Download
+  if (btnDownloadImage) {
+    btnDownloadImage.addEventListener('click', () => {
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+      if (!ctx) return;
+
+      if (currentTool === 'crop') {
+        const targetW = Number(cropTargetW?.value) || 1;
+        const targetH = Number(cropTargetH?.value) || 1;
+        const crop = calculateCrop(currentWidth, currentHeight, targetW, targetH);
+
+        canvas.width = crop.cropWidth;
+        canvas.height = crop.cropHeight;
+
+        if (uploadedImageObj) {
+          ctx.drawImage(
+            uploadedImageObj,
+            crop.trimLeft,
+            crop.trimTop,
+            crop.cropWidth,
+            crop.cropHeight,
+            0,
+            0,
+            crop.cropWidth,
+            crop.cropHeight
+          );
+        } else {
+          // Draw clean mock canvas placeholder with dimensions
+          ctx.fillStyle = '#171717';
+          ctx.fillRect(0, 0, canvas.width, canvas.height);
+          ctx.fillStyle = '#ffffff';
+          ctx.font = 'bold 36px monospace';
+          ctx.textAlign = 'center';
+          ctx.fillText(`AspectRatioKit: ${crop.cropWidth} × ${crop.cropHeight}`, canvas.width / 2, canvas.height / 2);
+        }
+      } else if (currentTool === 'resize') {
+        const percent = Number(resizeSlider?.value) || 100;
+        const factor = percent / 100;
+        const newW = Math.max(1, Math.round(currentWidth * factor));
+        const newH = Math.max(1, Math.round(currentHeight * factor));
+
+        canvas.width = newW;
+        canvas.height = newH;
+
+        if (uploadedImageObj) {
+          ctx.drawImage(uploadedImageObj, 0, 0, newW, newH);
+        } else {
+          ctx.fillStyle = '#171717';
+          ctx.fillRect(0, 0, canvas.width, canvas.height);
+          ctx.fillStyle = '#ffffff';
+          ctx.font = 'bold 36px monospace';
+          ctx.textAlign = 'center';
+          ctx.fillText(`${newW} × ${newH}`, canvas.width / 2, canvas.height / 2);
+        }
+      } else {
+        canvas.width = currentWidth;
+        canvas.height = currentHeight;
+        if (uploadedImageObj) {
+          ctx.drawImage(uploadedImageObj, 0, 0, currentWidth, currentHeight);
+        } else {
+          ctx.fillStyle = '#171717';
+          ctx.fillRect(0, 0, canvas.width, canvas.height);
+          ctx.fillStyle = '#ffffff';
+          ctx.font = 'bold 36px monospace';
+          ctx.textAlign = 'center';
+          ctx.fillText(`${currentWidth} × ${currentHeight}`, canvas.width / 2, canvas.height / 2);
+        }
+      }
+
+      const link = document.createElement('a');
+      link.download = `${uploadedFileName}-${canvas.width}x${canvas.height}.png`;
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+    });
+  }
+
+  // Copy Buttons
+  copyBtns.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const copyType = (btn as HTMLElement).dataset.copyType;
+      let text = '';
+      if (copyType === 'css') text = `aspect-ratio: ${ratioW} / ${ratioH};`;
+      else if (copyType === 'tailwind') text = copyCodeTailwind?.textContent || '';
+      else if (copyType === 'dims') text = `${currentWidth} × ${currentHeight}`;
+      else if (copyType === 'html') text = `width="${currentWidth}" height="${currentHeight}"`;
+
+      if (text) {
+        navigator.clipboard.writeText(text).then(() => {
+          if (copyToast) {
+            copyToast.classList.remove('opacity-0');
+            setTimeout(() => copyToast.classList.add('opacity-0'), 2000);
+          }
+        });
+      }
+    });
+  });
+
+  // Handle Initial Props & window resize for responsive visualizer
+  window.addEventListener('resize', () => {
+    const analysis = analyzeDimensions(currentWidth, currentHeight);
+    updateShapeVisualizer(currentWidth, currentHeight, analysis);
+    if (currentTool === 'crop') updateCropDisplay();
+  });
+
+  // Initial Boot
+  updateAll(currentWidth, currentHeight, ratioW, ratioH);
+</script>

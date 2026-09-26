@@ -1,0 +1,41 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import HeroMesh from '../components/HeroMesh.astro';
+import AspectRatioWorkbench from '../components/AspectRatioWorkbench.astro';
+import PresetDirectory from '../components/PresetDirectory.astro';
+import SeoGuide from '../components/SeoGuide.astro';
+---
+
+<BaseLayout
+  title="Aspect Ratio Calculator - Precision Image, Screen & Dimension Tool"
+  description="Free online aspect ratio calculator for images, screens, pixels, and inches. Calculate 16:9 and 16x9 dimensions, resize proportionally, and find image ratios privately."
+  canonicalPath="/"
+  activeNav="/"
+  keywords="aspect ratio calculator, 16:9 aspect ratio calculator, tire aspect ratio calculator, image aspect ratio calculator, 16x9 aspect ratio calculator, aspect ratio calculator inches, aspect ratio calculator for images, aspect ratio calculator pixels, aspect ratio finder, proportional resize calculator, crop calculator"
+>
+  <!-- Hero with Vercel Geist Mesh Gradient -->
+  <HeroMesh
+    eyebrow="FAST • CLIENT-SIDE • 100% PRIVACY FIRST"
+    title="Aspect Ratio"
+    highlight="Calculator"
+    description="Calculate aspect ratios, detect image dimensions, scale pixels and inches, and solve 16:9 widescreen or custom framing crops directly in your browser. Fast, ad-free, mathematical precision."
+  />
+
+  <!-- The Master Interactive Toolkit Workbench -->
+  <AspectRatioWorkbench
+    initialMode="finder"
+    defaultRatioW={16}
+    defaultRatioH={9}
+    defaultWidth={1920}
+    defaultHeight={1080}
+    title="Aspect Ratio Interactive Toolkit"
+    subtitle="Drop an image to inspect its ratio, calculate custom dimensions, or compute precise crop parameters."
+  />
+
+  <!-- Presets & Platform Resolution Guide -->
+  <PresetDirectory />
+
+  <!-- In-Depth Mathematical & Technical Explanations with FAQ -->
+  <SeoGuide />
+</BaseLayout>
+

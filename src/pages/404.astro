@@ -1,0 +1,57 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="404 - Page Not Found | AspectRatioKit"
+  description="The requested page could not be found. Return to AspectRatioKit to calculate aspect ratios, dimensions, and image framing."
+  canonicalPath="/404"
+>
+  <div class="min-h-[70vh] flex items-center justify-center py-16 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-md w-full text-center space-y-6">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white dark:bg-[#141414] border border-[#ebebeb] dark:border-[#262626] text-xs font-mono uppercase text-[#ee0000]">
+        <span class="w-1.5 h-1.5 rounded-full bg-[#ee0000]"></span>
+        <span>Error 404</span>
+      </div>
+
+      <h1 class="text-4xl sm:text-6xl font-semibold tracking-tight text-[#171717] dark:text-white font-mono">
+        404
+      </h1>
+
+      <div class="space-y-2">
+        <h2 class="text-xl font-semibold text-[#171717] dark:text-white tracking-tight">
+          Page Not Found
+        </h2>
+        <p class="text-sm text-[#737373] dark:text-[#a1a1a1] leading-relaxed">
+          The page or ratio tool you are looking for has moved, been renamed, or does not exist.
+        </p>
+      </div>
+
+      <div class="pt-2 flex flex-wrap items-center justify-center gap-3">
+        <a
+          href="/"
+          class="px-5 py-2.5 rounded-full bg-[#171717] dark:bg-white text-white dark:text-[#171717] text-sm font-medium hover:bg-[#333333] dark:hover:bg-[#ededed] transition-all shadow-xs"
+        >
+          Return to All Tools
+        </a>
+        <a
+          href="/16-9-calculator"
+          class="px-5 py-2.5 rounded-full bg-white dark:bg-[#141414] border border-[#ebebeb] dark:border-[#262626] text-[#171717] dark:text-white text-sm font-medium hover:border-[#171717] dark:hover:border-white transition-all shadow-xs"
+        >
+          16:9 Calculator
+        </a>
+      </div>
+
+      <!-- Quick Helpful Links -->
+      <div class="pt-6 border-t border-[#ebebeb] dark:border-[#262626] text-xs text-[#737373] dark:text-[#a1a1a1] space-y-2">
+        <p class="font-mono uppercase text-[10px]">Popular Calculators</p>
+        <div class="flex flex-wrap justify-center gap-x-4 gap-y-1">
+          <a href="/9-16-calculator" class="hover:text-[#171717] dark:hover:text-white underline">9:16 Vertical</a>
+          <a href="/4-3-calculator" class="hover:text-[#171717] dark:hover:text-white underline">4:3 Standard</a>
+          <a href="/crop-calculator" class="hover:text-[#171717] dark:hover:text-white underline">Crop &amp; Framing</a>
+          <a href="/proportional-resize-calculator" class="hover:text-[#171717] dark:hover:text-white underline">Proportional Resizer</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</BaseLayout>

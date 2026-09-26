@@ -1,0 +1,69 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import AspectRatioWorkbench from '../components/AspectRatioWorkbench.astro';
+---
+
+<BaseLayout
+  title="Proportional Resize Calculator - Scale Images Without Distortion"
+  description="Resize and scale images proportionally by percentage or target dimensions while locking the aspect ratio. Processed 100% in your browser."
+  canonicalPath="/proportional-resize-calculator"
+  activeNav="/proportional-resize-calculator"
+>
+  <div class="py-12 bg-[#fafafa] border-b border-[#ebebeb]">
+    <div class="max-w-4xl mx-auto px-4 text-center">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white border border-[#ebebeb] text-xs font-mono uppercase text-[#0070f3] mb-4">
+        <span>Aspect Ratio Preserving Resizer</span>
+      </div>
+      <h1 class="text-3xl sm:text-5xl font-semibold tracking-tight text-[#171717]">
+        Proportional Image Resize Calculator
+      </h1>
+      <p class="mt-3 text-base text-[#4d4d4d] max-w-xl mx-auto">
+        Scale images up or down by percentage or custom constraints without distortion, stretching, or loss of proportional balance.
+      </p>
+    </div>
+  </div>
+
+  <AspectRatioWorkbench
+    initialMode="resize"
+    defaultWidth={1920}
+    defaultHeight={1080}
+    title="Proportional Scale Studio"
+    subtitle="Drop an image or enter your source dimensions to calculate resized resolutions and export in-browser."
+  />
+
+  <!-- Educational Guide on Proportional Resizing -->
+  <section class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-8">
+    <div>
+      <h2 class="text-2xl font-semibold text-[#171717]">How Proportional Resizing Works</h2>
+      <p class="text-sm text-[#4d4d4d] mt-2 leading-relaxed">
+        When an image is scaled proportionally, both width and height are multiplied by the exact same scaling coefficient (k = Scale% / 100). This guarantees that the original aspect ratio (W / H) remains identical.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="bg-white p-5 rounded-xl border border-[#ebebeb] whisper-shadow">
+        <div class="text-xs font-mono uppercase text-[#8f8f8f] mb-1">Downscaling (e.g. 50%)</div>
+        <div class="text-base font-semibold text-[#171717] mb-2">Halving Dimensions</div>
+        <p class="text-xs text-[#4d4d4d] leading-relaxed">
+          Downscaling 1920×1080 by 50% produces 960×540. The total pixel count drops by 75% (from 2.07 MP to 0.52 MP), dramatically improving web load speeds.
+        </p>
+      </div>
+
+      <div class="bg-white p-5 rounded-xl border border-[#ebebeb] whisper-shadow">
+        <div class="text-xs font-mono uppercase text-[#8f8f8f] mb-1">Upscaling (e.g. 200%)</div>
+        <div class="text-base font-semibold text-[#171717] mb-2">Doubling Resolution</div>
+        <p class="text-xs text-[#4d4d4d] leading-relaxed">
+          Scaling 1920×1080 to 200% yields 3840×2160 (4K UHD). The aspect ratio remains perfectly 16:9 while quadrupling canvas pixel area.
+        </p>
+      </div>
+
+      <div class="bg-white p-5 rounded-xl border border-[#ebebeb] whisper-shadow">
+        <div class="text-xs font-mono uppercase text-[#8f8f8f] mb-1">Single-Axis Constraint</div>
+        <div class="text-base font-semibold text-[#171717] mb-2">Target Width or Height</div>
+        <p class="text-xs text-[#4d4d4d] leading-relaxed">
+          Specify a target width (e.g., maximum container width 800px) and let cross-multiplication determine the matching height to prevent layout shifts.
+        </p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

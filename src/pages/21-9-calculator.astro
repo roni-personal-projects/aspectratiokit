@@ -1,0 +1,67 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import AspectRatioWorkbench from '../components/AspectRatioWorkbench.astro';
+
+const resolutions219 = [
+  { label: '5K2K Ultrawide', w: 5120, h: 2160, use: 'High-end creator displays (LG UltraFine, Dell UltraSharp)' },
+  { label: 'UWQHD (1440p Ultrawide)', w: 3440, h: 1440, use: 'Standard 34-inch curved gaming & productivity monitors' },
+  { label: 'UW-FHD (1080p Ultrawide)', w: 2560, h: 1080, use: 'Budget 29-inch and 34-inch ultrawide monitors' },
+  { label: 'Cinemascope 4K DCI', w: 4096, h: 1714, use: 'Cinema theatrical DCP projection format' },
+  { label: 'Cinemascope 2K DCI', w: 2048, h: 858, use: 'Standard theatrical 2K digital cinema distribution' },
+];
+---
+
+<BaseLayout
+  title="21:9 Aspect Ratio Calculator - Ultrawide Monitor & Cinema Tool"
+  description="Calculate exact 21:9 ultrawide monitor and cinemascope film dimensions for 3440x1440p, 5120x2160p, and gaming wallpapers."
+  canonicalPath="/21-9-calculator"
+  activeNav="/image-aspect-ratio"
+>
+  <div class="py-12 bg-[#fafafa] border-b border-[#ebebeb]">
+    <div class="max-w-4xl mx-auto px-4 text-center">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white border border-[#ebebeb] text-xs font-mono uppercase text-[#0070f3] mb-4">
+        <span>Cinematic & Ultrawide Display (2.33:1 / 2.39:1)</span>
+      </div>
+      <h1 class="text-3xl sm:text-5xl font-semibold tracking-tight text-[#171717]">
+        21:9 Ultrawide Aspect Ratio Calculator
+      </h1>
+      <p class="mt-3 text-base text-[#4d4d4d] max-w-xl mx-auto">
+        The panoramic format for curved desktop gaming monitors, immersive multi-tasking workflows, and CinemaScope movies.
+      </p>
+    </div>
+  </div>
+
+  <AspectRatioWorkbench
+    initialMode="calculator"
+    defaultRatioW={21}
+    defaultRatioH={9}
+    defaultWidth={3440}
+    defaultHeight={1440}
+  />
+
+  <section class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <h2 class="text-xl font-semibold text-[#171717] mb-4">Standard 21:9 Resolutions</h2>
+    <div class="bg-white rounded-xl border border-[#ebebeb] overflow-hidden whisper-shadow">
+      <table class="w-full text-left text-xs sm:text-sm">
+        <thead class="bg-[#fafafa] border-b border-[#ebebeb] text-[#8f8f8f] font-mono uppercase text-[11px]">
+          <tr>
+            <th class="p-3.5">Resolution Label</th>
+            <th class="p-3.5">Dimensions (W × H)</th>
+            <th class="p-3.5">Megapixels</th>
+            <th class="p-3.5">Hardware & Application</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-[#ebebeb] text-[#171717]">
+          {resolutions219.map((res) => (
+            <tr class="hover:bg-[#fafafa] transition-colors">
+              <td class="p-3.5 font-medium">{res.label}</td>
+              <td class="p-3.5 font-mono text-[#0070f3] font-semibold">{res.w} × {res.h}</td>
+              <td class="p-3.5 font-mono">{((res.w * res.h) / 1000000).toFixed(1)} MP</td>
+              <td class="p-3.5 text-[#4d4d4d]">{res.use}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,377 @@
+---
+interface FaqItem {
+  q: string;
+  a: string;
+}
+
+const faqs: FaqItem[] = [
+  {
+    q: "How do I find my aspect ratio?",
+    a: "To find your aspect ratio, divide width by height and simplify to lowest whole integers via Greatest Common Divisor (GCD). For a 1920×1080 image, dividing by 120 gives 16:9. With our free online aspect ratio calculator, simply drop an image or input pixel dimensions to detect your ratio instantly."
+  },
+  {
+    q: "How to calculate 16:9 aspect ratio?",
+    a: "To calculate 16:9 dimensions (also written as 16x9), calculate: Height = (Width × 9) / 16, or Width = (Height × 16) / 9. For example, a 1920px width yields 1080px (Full HD). Our 16:9 aspect ratio calculator computes 4K (3840×2160), 1440p, and custom dimensions automatically."
+  },
+  {
+    q: "What is 3x4 aspect ratio?",
+    a: "A 3x4 aspect ratio (or 3:4 vertical) has 3 units of width for every 4 units of height (0.75:1 decimal). Common for tablet displays, vertical portrait photography, and smartphone screens, standard 3:4 resolutions include 1500×2000 px and 768×1024 px. In print, standard 3:4 sizes include 6×8, 9×12, and 18×24 inches."
+  },
+  {
+    q: "Should I use 16/9 or 4:3?",
+    a: "Use 16:9 (16/9) for modern video, YouTube, PC monitors, and TVs, as it matches today's standard displays. Use 4:3 for retro games, tablets, documents, legacy projectors, and Micro Four Thirds photography. 16:9 on a 4:3 screen causes letterboxing (top/bottom bars), while 4:3 on 16:9 creates pillarboxing (side bars)."
+  },
+  {
+    q: "How does a tire aspect ratio calculator work compared to an image ratio tool?",
+    a: "An image ratio tool compares 2D width to height (like 16:9). A tire aspect ratio calculator computes sidewall height as a percentage of tire section width. In a 225/45R17 tire, the 45% ratio means sidewall height equals 225mm × 0.45 = 101.25mm."
+  },
+  {
+    q: "How do you use an aspect ratio calculator in inches and pixels?",
+    a: "An aspect ratio calculator inches tool converts print dimensions to pixels using DPI. At 300 DPI, multiply inches by 300: an 8×10 inch print requires 2400×3000 pixels (4:5 ratio), while 4×6 inches requires 1200×1800 pixels (3:2 ratio)."
+  }
+];
+
+const standardRatiosTable = [
+  { ratio: "16:9 (16x9)", decimal: "1.78:1", pixels: "1920×1080, 3840×2160", inches: "16×9 in, 32×18 in", use: "HDTV, YouTube, PC gaming monitors, standard widescreen displays" },
+  { ratio: "9:16", decimal: "0.56:1", pixels: "1080×1920, 720×1280", inches: "9×16 in, 4.5×8 in", use: "TikTok, Instagram Reels, YouTube Shorts, mobile vertical video" },
+  { ratio: "4:3", decimal: "1.33:1", pixels: "1024×768, 1440×1080", inches: "4×3 in, 8×6 in", use: "Retro gaming, iPad tablets, legacy television, Micro Four Thirds sensors" },
+  { ratio: "3:2", decimal: "1.50:1", pixels: "6000×4000, 3000×2000", inches: "4×6 in, 8×12 in", use: "35mm film photography, DSLR cameras, standard photo prints" },
+  { ratio: "1:1", decimal: "1.00:1", pixels: "1080×1080, 2048×2048", inches: "8×8 in, 12×12 in", use: "Instagram square posts, profile pictures, album covers, eCommerce" },
+  { ratio: "21:9", decimal: "2.33:1", pixels: "2560×1080, 3440×1440", inches: "21×9 in, 34.4×14.4 in", use: "Ultrawide gaming monitors, cinematic anamorphic widescreen" },
+];
+---
+
+<section class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-[#ebebeb]">
+  <div class="space-y-12">
+
+    <!-- Header Section -->
+    <div>
+      <div class="text-xs font-mono uppercase tracking-wider text-[#0070f3] font-semibold mb-2">
+        Technical Reference &amp; Calculator Guide
+      </div>
+      <h2 class="text-2xl sm:text-3xl md:text-4xl font-semibold tracking-tight text-[#171717]">
+        The Complete Aspect Ratio Calculator Guide: Images, Screens, Pixels, Inches, and Tires
+      </h2>
+      <p class="text-sm sm:text-base text-[#4d4d4d] mt-2.5 leading-relaxed">
+        Whether configuring 16:9 widescreen video, preparing photo prints in inches, scaling digital pixels, or solving automotive tire formulas, an <strong>aspect ratio calculator</strong> is an essential precision utility. This reference explains the mathematical mechanics, reduction formulas, resolution standards, and practical methods required to calculate aspect ratios accurately without distortion.
+      </p>
+    </div>
+
+    <!-- Section 1: What is an Aspect Ratio Calculator? -->
+    <div class="space-y-3">
+      <h3 class="text-xl font-semibold text-[#171717] tracking-tight">
+        What Is an Aspect Ratio Calculator and How Does It Work?
+      </h3>
+      <p class="text-sm text-[#4d4d4d] leading-relaxed">
+        An <strong>aspect ratio calculator</strong> computes the proportional relationship between the width and height of an image, video, screen display, or physical canvas. It defines geometric shape rather than absolute resolution, expressed as two integers separated by a colon (<strong>Width:Height</strong>, such as 16:9, 4:3, or 1:1).
+      </p>
+      <p class="text-sm text-[#4d4d4d] leading-relaxed">
+        To simplify arbitrary dimensions into standard ratios, an <strong>image aspect ratio calculator</strong> applies the Euclidean Greatest Common Divisor (GCD) algorithm. Dividing width and height by their GCD produces the simplest reduced ratio:
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-3">
+        <div class="bg-white p-4 rounded-xl border border-[#ebebeb] whisper-shadow">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="px-2 py-0.5 rounded bg-[#fafafa] border border-[#ebebeb] font-mono text-xs font-bold text-[#171717]">GCD</span>
+            <h4 class="text-sm font-semibold text-[#171717]">Ratio Reduction Formula</h4>
+          </div>
+          <div class="bg-[#fafafa] p-2.5 rounded-lg border border-[#ebebeb] font-mono text-xs text-[#171717] space-y-1">
+            <div>Divisor = GCD(Width, Height)</div>
+            <div>Simplified Ratio = (Width / Divisor) : (Height / Divisor)</div>
+          </div>
+          <p class="text-[11px] text-[#737373] mt-2">
+            Example: A 3840×2160 image has a GCD of 240, reducing to 16:9.
+          </p>
+        </div>
+
+        <div class="bg-white p-4 rounded-xl border border-[#ebebeb] whisper-shadow">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="px-2 py-0.5 rounded bg-[#fafafa] border border-[#ebebeb] font-mono text-xs font-bold text-[#171717]">Formula</span>
+            <h4 class="text-sm font-semibold text-[#171717]">Dimension Scaling Formula</h4>
+          </div>
+          <div class="bg-[#fafafa] p-2.5 rounded-lg border border-[#ebebeb] font-mono text-xs text-[#171717] space-y-1">
+            <div>Height = (Width × Ratio_H) / Ratio_W</div>
+            <div>Width = (Height × Ratio_W) / Ratio_H</div>
+          </div>
+          <p class="text-[11px] text-[#737373] mt-2">
+            Example: At 16:9 and 1280px width: Height = (1280 × 9) / 16 = 720px.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 2: 16:9 & 16x9 Aspect Ratio Calculator -->
+    <div class="space-y-3">
+      <h3 class="text-xl font-semibold text-[#171717] tracking-tight">
+        16:9 &amp; 16x9 Aspect Ratio Calculator: The Global Widescreen Standard
+      </h3>
+      <p class="text-sm text-[#4d4d4d] leading-relaxed">
+        The <strong>16:9 aspect ratio calculator</strong> (often searched as a <strong>16x9 aspect ratio calculator</strong>) is the most widely used ratio tool in digital media. Standardized by SMPTE, 16:9 is the universal standard for HDTV, computer monitors, and streaming platforms like YouTube.
+      </p>
+      <p class="text-sm text-[#4d4d4d] leading-relaxed">
+        A 16:9 aspect ratio equals approximately 1.78:1 in decimal notation. Standard resolutions calculated by our <strong>16:9 aspect ratio calculator</strong> include:
+      </p>
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+        <div class="bg-white p-3 rounded-lg border border-[#ebebeb] text-center">
+          <div class="text-[11px] font-mono text-[#8f8f8f] uppercase">8K UHD</div>
+          <div class="text-sm font-bold text-[#171717] font-mono mt-0.5">7680 × 4320</div>
+        </div>
+        <div class="bg-white p-3 rounded-lg border border-[#ebebeb] text-center">
+          <div class="text-[11px] font-mono text-[#8f8f8f] uppercase">4K UHD</div>
+          <div class="text-sm font-bold text-[#171717] font-mono mt-0.5">3840 × 2160</div>
+        </div>
+        <div class="bg-white p-3 rounded-lg border border-[#ebebeb] text-center">
+          <div class="text-[11px] font-mono text-[#8f8f8f] uppercase">2K QHD (1440p)</div>
+          <div class="text-sm font-bold text-[#171717] font-mono mt-0.5">2560 × 1440</div>
+        </div>
+        <div class="bg-white p-3 rounded-lg border border-[#ebebeb] text-center">
+          <div class="text-[11px] font-mono text-[#8f8f8f] uppercase">Full HD (1080p)</div>
+          <div class="text-sm font-bold text-[#171717] font-mono mt-0.5">1920 × 1080</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 3: Image Aspect Ratio Calculator for Pixels -->
+    <div class="space-y-3">
+      <h3 class="text-xl font-semibold text-[#171717] tracking-tight">
+        Image Aspect Ratio Calculator for Pixels: Digital Resizing Without Distortion
+      </h3>
+      <p class="text-sm text-[#4d4d4d] leading-relaxed">
+        An <strong>aspect ratio calculator pixels</strong> tool helps web designers, software engineers, and digital content creators resize graphics proportionally without unintended distortion. Modifying image width and height independently leads to squished portraits, stretched text, and compromised visual quality.
+      </p>
+      <p class="text-sm text-[#4d4d4d] leading-relaxed">
+        An <strong>aspect ratio calculator for images</strong> calculates complementary pixel values automatically. By locking the aspect ratio, resizing from raw camera files down to responsive web thumbnails preserves identical geometric proportions across mobile and desktop viewports.
+      </p>
+    </div>
+
+    <!-- Section 4: Aspect Ratio Calculator Inches for Print -->
+    <div class="space-y-3">
+      <h3 class="text-xl font-semibold text-[#171717] tracking-tight">
+        Aspect Ratio Calculator Inches: Translating Pixels into Physical Prints
+      </h3>
+      <p class="text-sm text-[#4d4d4d] leading-relaxed">
+        When framing photography, an <strong>aspect ratio calculator inches</strong> workflow is essential. Screens display pixels, while physical frames use inches. The conversion factor is <strong>Dots Per Inch (DPI)</strong>:
+      </p>
+      <div class="bg-[#fafafa] p-3 rounded-xl border border-[#ebebeb] text-xs font-mono text-[#171717] space-y-1">
+        <div>Required Pixels = Physical Inches × Print DPI (300 DPI benchmark)</div>
+        <div>Example: An 8×10 inch print at 300 DPI requires 2400×3000 pixels (4:5 ratio).</div>
+      </div>
+      <p class="text-xs text-[#737373] leading-relaxed">
+        Many digital cameras capture photos in 3:2 (such as 6000×4000 pixels). Ordering a standard 8×10 inch print (4:5 ratio) without an <strong>aspect ratio calculator inches</strong> tool causes unintentional photo cropping by the lab. Calculating beforehand prevents composition trimming.
+      </p>
+    </div>
+
+    <!-- Section 5: Tire Aspect Ratio Calculator Explained -->
+    <div class="space-y-3">
+      <h3 class="text-xl font-semibold text-[#171717] tracking-tight">
+        Tire Aspect Ratio Calculator: Automotive Sizing vs. Visual Image Ratios
+      </h3>
+      <p class="text-sm text-[#4d4d4d] leading-relaxed">
+        Many visitors seeking ratio tools need an automotive <strong>tire aspect ratio calculator</strong>. In automotive engineering, tire aspect ratio (profile or series) expresses sidewall height as a percentage of tire section width rather than a two-dimensional visual shape.
+      </p>
+      <div class="bg-white p-4 rounded-xl border border-[#ebebeb] whisper-shadow space-y-2">
+        <h4 class="text-sm font-semibold text-[#171717]">Automotive Tire Aspect Ratio Formula</h4>
+        <div class="bg-[#fafafa] p-2 rounded-lg border border-[#ebebeb] font-mono text-xs text-[#171717] space-y-1">
+          <div>Sidewall Height (mm) = Section Width (mm) × (Tire Aspect Ratio / 100)</div>
+          <div>Total Diameter (mm) = (2 × Sidewall Height) + (Wheel Rim Inches × 25.4)</div>
+        </div>
+        <p class="text-xs text-[#737373]">
+          In a <strong>225/45R17</strong> tire, section width is 225mm and aspect ratio is 45%. Sidewall height equals 225 × 0.45 = <strong>101.25 mm</strong>. With a 17-inch rim (431.8 mm), total wheel diameter is <strong>634.3 mm</strong>.
+        </p>
+      </div>
+
+      <!-- Quick Interactive Tire Sidewall Helper -->
+      <div class="bg-[#fafafa] p-4 rounded-xl border border-[#ebebeb] space-y-3" id="tire-calculator-card">
+        <div class="flex items-center gap-2">
+          <div class="w-5 h-5 rounded bg-[#171717] text-white flex items-center justify-center font-mono text-[9px] font-bold">
+            TR
+          </div>
+          <h4 class="text-xs font-semibold text-[#171717] uppercase tracking-wider font-mono">Tire Aspect Ratio Quick Helper</h4>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <div>
+            <label class="block text-[11px] font-mono text-[#737373] mb-1">Width (mm)</label>
+            <input
+              type="number"
+              id="tire-width"
+              value="225"
+              class="w-full px-2.5 py-1 rounded-md border border-[#ebebeb] bg-white text-xs font-mono text-[#171717]"
+            />
+          </div>
+          <div>
+            <label class="block text-[11px] font-mono text-[#737373] mb-1">Ratio (%)</label>
+            <input
+              type="number"
+              id="tire-ratio"
+              value="45"
+              class="w-full px-2.5 py-1 rounded-md border border-[#ebebeb] bg-white text-xs font-mono text-[#171717]"
+            />
+          </div>
+          <div>
+            <label class="block text-[11px] font-mono text-[#737373] mb-1">Rim (in)</label>
+            <input
+              type="number"
+              id="tire-rim"
+              value="17"
+              class="w-full px-2.5 py-1 rounded-md border border-[#ebebeb] bg-white text-xs font-mono text-[#171717]"
+            />
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3 pt-1">
+          <div class="bg-white p-2.5 rounded-lg border border-[#ebebeb]">
+            <span class="text-[10px] text-[#737373] font-mono block">Sidewall Height</span>
+            <span id="tire-sidewall-result" class="text-sm font-bold font-mono text-[#0070f3]">101.25 mm</span>
+          </div>
+          <div class="bg-white p-2.5 rounded-lg border border-[#ebebeb]">
+            <span class="text-[10px] text-[#737373] font-mono block">Total Diameter</span>
+            <span id="tire-diameter-result" class="text-sm font-bold font-mono text-[#171717]">634.3 mm</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 6: How to Use the Aspect Ratio Calculator -->
+    <div class="space-y-3">
+      <h3 class="text-xl font-semibold text-[#171717] tracking-tight">
+        Step-by-Step: How to Use This Aspect Ratio Calculator
+      </h3>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+        <div class="bg-white p-4 rounded-xl border border-[#ebebeb] whisper-shadow space-y-1.5">
+          <div class="w-5 h-5 rounded-full bg-[#171717] text-white flex items-center justify-center font-mono text-[10px] font-bold">1</div>
+          <h4 class="text-xs font-semibold text-[#171717]">Inspect Image or Dimensions</h4>
+          <p class="text-[12px] text-[#737373] leading-relaxed">
+            Drop an image into the <strong>Image Ratio Finder</strong> or enter custom pixel and inch dimensions. The tool computes GCD metrics and detects proportions client-side.
+          </p>
+        </div>
+        <div class="bg-white p-4 rounded-xl border border-[#ebebeb] whisper-shadow space-y-1.5">
+          <div class="w-5 h-5 rounded-full bg-[#171717] text-white flex items-center justify-center font-mono text-[10px] font-bold">2</div>
+          <h4 class="text-xs font-semibold text-[#171717]">Calculate Missing Coordinates</h4>
+          <p class="text-[12px] text-[#737373] leading-relaxed">
+            Use the <strong>Aspect Calculator</strong> to solve target widths or heights instantly while maintaining strict 16:9, 4:3, or custom ratio geometry.
+          </p>
+        </div>
+        <div class="bg-white p-4 rounded-xl border border-[#ebebeb] whisper-shadow space-y-1.5">
+          <div class="w-5 h-5 rounded-full bg-[#171717] text-white flex items-center justify-center font-mono text-[10px] font-bold">3</div>
+          <h4 class="text-xs font-semibold text-[#171717]">Resize &amp; Crop Framing</h4>
+          <p class="text-[12px] text-[#737373] leading-relaxed">
+            Simulate container framing using the <strong>Crop &amp; Framing</strong> solver to preview letterboxing, pillarboxing, and exact center-crop margins before publishing.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 7: Master Aspect Ratio Reference Table -->
+    <div class="space-y-3">
+      <h3 class="text-xl font-semibold text-[#171717] tracking-tight">
+        Master Aspect Ratio Reference Table: Pixels, Inches, and Applications
+      </h3>
+      <div class="bg-white rounded-xl border border-[#ebebeb] overflow-hidden whisper-shadow">
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs sm:text-sm">
+            <thead class="bg-[#fafafa] border-b border-[#ebebeb] text-[#8f8f8f] font-mono uppercase text-[11px]">
+              <tr>
+                <th class="p-3">Aspect Ratio</th>
+                <th class="p-3">Decimal</th>
+                <th class="p-3">Common Pixels</th>
+                <th class="p-3">Print Sizes (Inches)</th>
+                <th class="p-3">Primary Usage</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-[#ebebeb] text-[#171717]">
+              {standardRatiosTable.map((item) => (
+                <tr class="hover:bg-[#fafafa] transition-colors">
+                  <td class="p-3 font-medium font-mono text-[#0070f3]">{item.ratio}</td>
+                  <td class="p-3 font-mono text-[#737373]">{item.decimal}</td>
+                  <td class="p-3 font-mono">{item.pixels}</td>
+                  <td class="p-3 text-[#4d4d4d]">{item.inches}</td>
+                  <td class="p-3 text-[#737373] text-xs">{item.use}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 8: Frequently Asked Questions -->
+    <div class="space-y-4">
+      <div>
+        <div class="text-xs font-mono uppercase tracking-wider text-[#0070f3] font-semibold mb-1">
+          SEO Knowledge Base
+        </div>
+        <h3 class="text-xl font-semibold text-[#171717] tracking-tight">
+          Frequently Asked Questions About Aspect Ratio Calculations
+        </h3>
+      </div>
+
+      <div class="space-y-2.5">
+        {faqs.map((faq) => (
+          <details class="group bg-white rounded-lg border border-[#ebebeb] p-3.5 transition-all [&_summary::-webkit-details-marker]:hidden">
+            <summary class="flex items-center justify-between cursor-pointer font-medium text-sm text-[#171717] select-none">
+              <span>{faq.q}</span>
+              <span class="ml-2 font-mono text-xs text-[#8f8f8f] group-open:rotate-180 transition-transform">▼</span>
+            </summary>
+            <p class="mt-2.5 text-xs text-[#4d4d4d] leading-relaxed border-t border-[#f2f2f2] pt-2.5 font-sans">
+              {faq.a}
+            </p>
+          </details>
+        ))}
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Schema.org JSON-LD for FAQPage -->
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": faqs.map(f => ({
+      "@type": "Question",
+      "name": f.q,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": f.a
+      }
+    }))
+  })} />
+</section>
+
+<!-- Client script for Tire Aspect Ratio mini calculator -->
+<script>
+  function initTireCalculator() {
+    const widthInput = document.getElementById('tire-width') as HTMLInputElement | null;
+    const ratioInput = document.getElementById('tire-ratio') as HTMLInputElement | null;
+    const rimInput = document.getElementById('tire-rim') as HTMLInputElement | null;
+    const sidewallResult = document.getElementById('tire-sidewall-result');
+    const diameterResult = document.getElementById('tire-diameter-result');
+
+    if (!widthInput || !ratioInput || !rimInput || !sidewallResult || !diameterResult) return;
+
+    function recalculate() {
+      const w = parseFloat(widthInput?.value || '0');
+      const r = parseFloat(ratioInput?.value || '0');
+      const rim = parseFloat(rimInput?.value || '0');
+
+      if (w > 0 && r > 0) {
+        const sidewall = w * (r / 100);
+        const rimMm = rim * 25.4;
+        const totalDiameter = (2 * sidewall) + rimMm;
+
+        sidewallResult.textContent = `${sidewall.toFixed(2)} mm`;
+        diameterResult.textContent = `${totalDiameter.toFixed(1)} mm`;
+      }
+    }
+
+    [widthInput, ratioInput, rimInput].forEach(el => {
+      el?.addEventListener('input', recalculate);
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initTireCalculator);
+  } else {
+    initTireCalculator();
+  }
+</script>

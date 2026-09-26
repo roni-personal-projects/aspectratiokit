@@ -1,0 +1,142 @@
+---
+import { COMMON_RATIOS } from '../lib/aspect-ratio';
+import { PLATFORM_PRESETS } from '../lib/presets';
+---
+
+<section id="preset-directory" class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+  <!-- Section Title -->
+  <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
+    <div>
+      <div class="text-xs font-mono uppercase tracking-wider text-[#0070f3] font-semibold mb-1">
+        Comprehensive Library
+      </div>
+      <h2 class="text-2xl sm:text-3xl font-semibold tracking-tight text-[#171717]">
+        Common Aspect Ratios & Platform Presets
+      </h2>
+      <p class="text-sm text-[#4d4d4d] mt-1">
+        Industry-standard proportions for social media, digital video, DSLR photography, and cinema.
+      </p>
+    </div>
+
+    <!-- Category Filter Tabs (Client-Side JS) -->
+    <div class="flex items-center gap-1.5 p-1 bg-[#f2f2f2] rounded-lg text-xs font-medium text-[#4d4d4d] overflow-x-auto">
+      <button type="button" data-preset-filter="all" class="preset-filter-btn px-3 py-1.5 rounded-md bg-white text-[#171717] font-semibold shadow-xs">All</button>
+      <button type="button" data-preset-filter="video" class="preset-filter-btn px-3 py-1.5 rounded-md hover:text-[#171717]">Video</button>
+      <button type="button" data-preset-filter="social" class="preset-filter-btn px-3 py-1.5 rounded-md hover:text-[#171717]">Social</button>
+      <button type="button" data-preset-filter="display" class="preset-filter-btn px-3 py-1.5 rounded-md hover:text-[#171717]">Displays</button>
+      <button type="button" data-preset-filter="photo" class="preset-filter-btn px-3 py-1.5 rounded-md hover:text-[#171717]">Photo & Cinema</button>
+    </div>
+  </div>
+
+  <!-- Standard Aspect Ratio Feature Cards -->
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mb-12">
+    {COMMON_RATIOS.slice(0, 6).map((ratio) => {
+      const pageSlug = `${ratio.ratioW}-${ratio.ratioH}-calculator`;
+      return (
+        <div
+          class="preset-card bg-white rounded-xl border border-[#ebebeb] p-5 whisper-shadow hover:border-[#171717] transition-all flex flex-col justify-between"
+          data-category={ratio.category}
+        >
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="px-2.5 py-1 rounded bg-[#fafafa] border border-[#ebebeb] text-xs font-mono font-bold text-[#171717]">
+                {ratio.ratioW}:{ratio.ratioH}
+              </span>
+              <span class="text-xs font-mono text-[#8f8f8f]">
+                {ratio.decimal.toFixed(2)}:1
+              </span>
+            </div>
+
+            <h3 class="text-base font-semibold text-[#171717] mb-1.5 font-sans">
+              {ratio.name}
+            </h3>
+            <p class="text-xs text-[#4d4d4d] leading-relaxed mb-4">
+              {ratio.description}
+            </p>
+
+            <!-- Popular resolutions tags -->
+            <div class="space-y-1.5 pt-2 border-t border-[#f2f2f2]">
+              <span class="text-[10px] font-mono uppercase text-[#8f8f8f] block">Popular Resolutions:</span>
+              <div class="flex flex-wrap gap-1.5">
+                {ratio.popularResolutions.slice(0, 3).map((res) => (
+                  <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-[#fafafa] border border-[#ebebeb] text-[#171717]">
+                    {res.width}×{res.height}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <div class="pt-5 mt-4 border-t border-[#f2f2f2] flex items-center justify-between">
+            <a
+              href={`/${pageSlug}`}
+              class="text-xs font-medium text-[#171717] hover:text-[#0070f3] transition-colors flex items-center gap-1"
+            >
+              <span>Open Dedicated Calculator</span>
+              <span>→</span>
+            </a>
+            {ratio.tailwindClass && (
+              <span class="text-[10px] font-mono text-[#8f8f8f] bg-[#f2f2f2] px-1.5 py-0.5 rounded">
+                {ratio.tailwindClass}
+              </span>
+            )}
+          </div>
+        </div>
+      );
+    })}
+  </div>
+
+  <!-- Social & Platform Presets Table / Cards -->
+  <div class="bg-white rounded-xl border border-[#ebebeb] p-6 whisper-shadow">
+    <div class="flex items-center justify-between mb-5">
+      <div>
+        <h3 class="text-lg font-semibold text-[#171717]">Social Media & Screen Size Cheat Sheet</h3>
+        <p class="text-xs text-[#8f8f8f]">Exact dimensions required by top platforms for uncompressed display</p>
+      </div>
+      <a href="/image-aspect-ratio" class="text-xs font-mono text-[#0070f3] hover:underline">View All Guide →</a>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      {PLATFORM_PRESETS.slice(0, 8).map((preset) => (
+        <div class="platform-card p-3.5 rounded-lg border border-[#ebebeb] hover:border-[#171717] bg-[#fafafa] hover:bg-white transition-all space-y-2">
+          <div class="flex items-center justify-between">
+            <span class="text-[11px] font-mono font-medium text-[#8f8f8f]">{preset.platform}</span>
+            <span class="text-[11px] font-mono font-bold text-[#171717] px-1.5 py-0.5 rounded bg-white border border-[#ebebeb]">
+              {preset.ratioLabel}
+            </span>
+          </div>
+          <div class="font-semibold text-sm text-[#171717] truncate">{preset.name}</div>
+          <div class="text-xs font-mono text-[#0070f3] font-semibold">{preset.width} × {preset.height} px</div>
+          <p class="text-[11px] text-[#4d4d4d] line-clamp-2 leading-relaxed">{preset.description}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script>
+  // Filter buttons logic
+  const filterBtns = document.querySelectorAll('.preset-filter-btn');
+  const presetCards = document.querySelectorAll('.preset-card');
+
+  filterBtns.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      filterBtns.forEach((b) => {
+        b.classList.remove('bg-white', 'text-[#171717]', 'font-semibold', 'shadow-xs');
+        b.classList.add('text-[#4d4d4d]');
+      });
+      btn.classList.add('bg-white', 'text-[#171717]', 'font-semibold', 'shadow-xs');
+      btn.classList.remove('text-[#4d4d4d]');
+
+      const filter = (btn as HTMLElement).dataset.presetFilter;
+      presetCards.forEach((card) => {
+        const cardCategory = (card as HTMLElement).dataset.category;
+        if (filter === 'all' || cardCategory === filter) {
+          (card as HTMLElement).style.display = 'flex';
+        } else {
+          (card as HTMLElement).style.display = 'none';
+        }
+      });
+    });
+  });
+</script>

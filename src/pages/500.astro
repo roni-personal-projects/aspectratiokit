@@ -1,0 +1,46 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="500 - Server Error | AspectRatioKit"
+  description="An unexpected error occurred. Please refresh the page or return to AspectRatioKit."
+  canonicalPath="/500"
+>
+  <div class="min-h-[70vh] flex items-center justify-center py-16 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-md w-full text-center space-y-6">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white dark:bg-[#141414] border border-[#ebebeb] dark:border-[#262626] text-xs font-mono uppercase text-[#ee0000]">
+        <span class="w-1.5 h-1.5 rounded-full bg-[#ee0000]"></span>
+        <span>Error 500</span>
+      </div>
+
+      <h1 class="text-4xl sm:text-6xl font-semibold tracking-tight text-[#171717] dark:text-white font-mono">
+        500
+      </h1>
+
+      <div class="space-y-2">
+        <h2 class="text-xl font-semibold text-[#171717] dark:text-white tracking-tight">
+          Unexpected Internal Error
+        </h2>
+        <p class="text-sm text-[#737373] dark:text-[#a1a1a1] leading-relaxed">
+          Something went wrong while rendering this request. All calculator functions run in your browser, so reloading usually resolves this immediately.
+        </p>
+      </div>
+
+      <div class="pt-2 flex flex-wrap items-center justify-center gap-3">
+        <button
+          onclick="window.location.reload()"
+          class="px-5 py-2.5 rounded-full bg-[#171717] dark:bg-white text-white dark:text-[#171717] text-sm font-medium hover:bg-[#333333] dark:hover:bg-[#ededed] transition-all shadow-xs cursor-pointer"
+        >
+          Reload Page
+        </button>
+        <a
+          href="/"
+          class="px-5 py-2.5 rounded-full bg-white dark:bg-[#141414] border border-[#ebebeb] dark:border-[#262626] text-[#171717] dark:text-white text-sm font-medium hover:border-[#171717] dark:hover:border-white transition-all shadow-xs"
+        >
+          Return Home
+        </a>
+      </div>
+    </div>
+  </div>
+</BaseLayout>

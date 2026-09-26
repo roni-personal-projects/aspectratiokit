@@ -1,0 +1,67 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import AspectRatioWorkbench from '../components/AspectRatioWorkbench.astro';
+
+const verticalResolutions = [
+  { label: '4K Vertical UHD', w: 2160, h: 3840, use: 'Ultra-HD vertical display screens' },
+  { label: '2K Vertical QHD', w: 1440, h: 2560, use: 'High-end mobile rendering' },
+  { label: 'Full HD Vertical (1080p)', w: 1080, h: 1920, use: 'TikTok, Instagram Reels, YouTube Shorts' },
+  { label: 'HD Vertical (720p)', w: 720, h: 1280, use: 'Fast lightweight mobile stories' },
+  { label: 'Mobile Low Res', w: 540, h: 960, use: 'Low bandwidth previews' },
+];
+---
+
+<BaseLayout
+  title="9:16 Aspect Ratio Calculator - Vertical Video for TikTok & Reels"
+  description="Calculate exact 9:16 vertical video dimensions for TikTok, Instagram Reels, and YouTube Shorts. Convert width to height instantly."
+  canonicalPath="/9-16-calculator"
+  activeNav="/9-16-calculator"
+>
+  <div class="py-12 bg-[#fafafa] border-b border-[#ebebeb]">
+    <div class="max-w-4xl mx-auto px-4 text-center">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white border border-[#ebebeb] text-xs font-mono uppercase text-[#7928ca] mb-4">
+        <span>Vertical Social Media Standard</span>
+      </div>
+      <h1 class="text-3xl sm:text-5xl font-semibold tracking-tight text-[#171717]">
+        9:16 Vertical Aspect Ratio Calculator
+      </h1>
+      <p class="mt-3 text-base text-[#4d4d4d] max-w-xl mx-auto">
+        The full-screen smartphone standard for TikTok, Instagram Reels, YouTube Shorts, and Snapchat stories.
+      </p>
+    </div>
+  </div>
+
+  <AspectRatioWorkbench
+    initialMode="calculator"
+    defaultRatioW={9}
+    defaultRatioH={16}
+    defaultWidth={1080}
+    defaultHeight={1920}
+  />
+
+  <section class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <h2 class="text-xl font-semibold text-[#171717] mb-4">Standard 9:16 Vertical Video Resolutions</h2>
+    <div class="bg-white rounded-xl border border-[#ebebeb] overflow-hidden whisper-shadow">
+      <table class="w-full text-left text-xs sm:text-sm">
+        <thead class="bg-[#fafafa] border-b border-[#ebebeb] text-[#8f8f8f] font-mono uppercase text-[11px]">
+          <tr>
+            <th class="p-3.5">Standard Label</th>
+            <th class="p-3.5">Dimensions (W × H)</th>
+            <th class="p-3.5">Megapixels</th>
+            <th class="p-3.5">Platforms</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-[#ebebeb] text-[#171717]">
+          {verticalResolutions.map((res) => (
+            <tr class="hover:bg-[#fafafa] transition-colors">
+              <td class="p-3.5 font-medium">{res.label}</td>
+              <td class="p-3.5 font-mono text-[#7928ca] font-semibold">{res.w} × {res.h}</td>
+              <td class="p-3.5 font-mono">{((res.w * res.h) / 1000000).toFixed(1)} MP</td>
+              <td class="p-3.5 text-[#4d4d4d]">{res.use}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </section>
+</BaseLayout>

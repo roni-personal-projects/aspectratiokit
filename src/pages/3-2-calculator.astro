@@ -1,0 +1,68 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import AspectRatioWorkbench from '../components/AspectRatioWorkbench.astro';
+
+const resolutions32 = [
+  { label: '45 Megapixel Pro', w: 8256, h: 5504, use: 'Sony A7R, Nikon Z8/Z9, Canon R5' },
+  { label: '33 Megapixel Standard', w: 7008, h: 4672, use: 'Sony A7 IV & full-frame prosumer bodies' },
+  { label: '24 Megapixel Classic', w: 6000, h: 4000, use: 'Standard 24MP full-frame and APS-C DSLR sensors' },
+  { label: '4x6 Photographic Print', w: 1800, h: 1200, use: 'Standard photo lab 300 DPI physical prints' },
+  { label: 'Web Portfolio Full HD', w: 1920, h: 1280, use: 'Crisp photo gallery display without compression' },
+  { label: 'Thumbnail Preview', w: 900, h: 600, use: 'Blog posts and gallery index grids' },
+];
+---
+
+<BaseLayout
+  title="3:2 Aspect Ratio Calculator - 35mm DSLR Photography Tool"
+  description="Calculate exact 3:2 photographic dimensions for 35mm film, DSLR sensors, and 4x6 print sizing."
+  canonicalPath="/3-2-calculator"
+  activeNav="/image-aspect-ratio"
+>
+  <div class="py-12 bg-[#fafafa] border-b border-[#ebebeb]">
+    <div class="max-w-4xl mx-auto px-4 text-center">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white border border-[#ebebeb] text-xs font-mono uppercase text-[#171717] mb-4">
+        <span>Photographic Standard (1.50:1)</span>
+      </div>
+      <h1 class="text-3xl sm:text-5xl font-semibold tracking-tight text-[#171717]">
+        3:2 Aspect Ratio Calculator
+      </h1>
+      <p class="mt-3 text-base text-[#4d4d4d] max-w-xl mx-auto">
+        The universal sensor format for 35mm film, professional full-frame mirrorless cameras, and traditional 4×6 photo printing.
+      </p>
+    </div>
+  </div>
+
+  <AspectRatioWorkbench
+    initialMode="calculator"
+    defaultRatioW={3}
+    defaultRatioH={2}
+    defaultWidth={6000}
+    defaultHeight={4000}
+  />
+
+  <section class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <h2 class="text-xl font-semibold text-[#171717] mb-4">Common 3:2 Photographic Resolutions</h2>
+    <div class="bg-white rounded-xl border border-[#ebebeb] overflow-hidden whisper-shadow">
+      <table class="w-full text-left text-xs sm:text-sm">
+        <thead class="bg-[#fafafa] border-b border-[#ebebeb] text-[#8f8f8f] font-mono uppercase text-[11px]">
+          <tr>
+            <th class="p-3.5">Sensor / Print Category</th>
+            <th class="p-3.5">Dimensions (W × H)</th>
+            <th class="p-3.5">Megapixels</th>
+            <th class="p-3.5">Camera Models & Usage</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-[#ebebeb] text-[#171717]">
+          {resolutions32.map((res) => (
+            <tr class="hover:bg-[#fafafa] transition-colors">
+              <td class="p-3.5 font-medium">{res.label}</td>
+              <td class="p-3.5 font-mono text-[#171717] font-semibold">{res.w} × {res.h}</td>
+              <td class="p-3.5 font-mono">{((res.w * res.h) / 1000000).toFixed(1)} MP</td>
+              <td class="p-3.5 text-[#4d4d4d]">{res.use}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </section>
+</BaseLayout>

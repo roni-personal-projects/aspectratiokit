@@ -1,0 +1,68 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import AspectRatioWorkbench from '../components/AspectRatioWorkbench.astro';
+
+const resolutions11 = [
+  { label: 'Instagram High-Res Square', w: 1080, h: 1080, use: 'Modern Instagram grid feed posts' },
+  { label: 'E-commerce Product Photo', w: 1200, h: 1200, use: 'Shopify, Amazon, WooCommerce product catalogs' },
+  { label: 'Social Profile Picture', w: 800, h: 800, use: 'Avatars for YouTube, Twitter, GitHub, Discord' },
+  { label: 'App Store Icon', w: 512, h: 512, use: 'Google Play & Apple App Store submission icons' },
+  { label: 'Standard Avatar', w: 400, h: 400, use: 'Standard platform profile icons' },
+  { label: 'Favicon High DPI', w: 192, h: 192, use: 'PWA Web App manifests & home screen bookmarks' },
+];
+---
+
+<BaseLayout
+  title="1:1 Aspect Ratio Calculator - Square Resolution Tool"
+  description="Calculate square 1:1 image and icon dimensions for Instagram, profile pictures, app icons, and e-commerce product photos."
+  canonicalPath="/1-1-calculator"
+  activeNav="/1-1-calculator"
+>
+  <div class="py-12 bg-[#fafafa] border-b border-[#ebebeb]">
+    <div class="max-w-4xl mx-auto px-4 text-center">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white border border-[#ebebeb] text-xs font-mono uppercase text-[#171717] mb-4">
+        <span>Square Format (1.00:1)</span>
+      </div>
+      <h1 class="text-3xl sm:text-5xl font-semibold tracking-tight text-[#171717]">
+        1:1 Square Aspect Ratio Calculator
+      </h1>
+      <p class="mt-3 text-base text-[#4d4d4d] max-w-xl mx-auto">
+        The universal square format used across social media feeds, profile avatars, product galleries, and app icons.
+      </p>
+    </div>
+  </div>
+
+  <AspectRatioWorkbench
+    initialMode="calculator"
+    defaultRatioW={1}
+    defaultRatioH={1}
+    defaultWidth={1080}
+    defaultHeight={1080}
+  />
+
+  <section class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <h2 class="text-xl font-semibold text-[#171717] mb-4">Standard 1:1 Square Resolutions</h2>
+    <div class="bg-white rounded-xl border border-[#ebebeb] overflow-hidden whisper-shadow">
+      <table class="w-full text-left text-xs sm:text-sm">
+        <thead class="bg-[#fafafa] border-b border-[#ebebeb] text-[#8f8f8f] font-mono uppercase text-[11px]">
+          <tr>
+            <th class="p-3.5">Standard Label</th>
+            <th class="p-3.5">Dimensions (W × H)</th>
+            <th class="p-3.5">Megapixels</th>
+            <th class="p-3.5">Platforms & Applications</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-[#ebebeb] text-[#171717]">
+          {resolutions11.map((res) => (
+            <tr class="hover:bg-[#fafafa] transition-colors">
+              <td class="p-3.5 font-medium">{res.label}</td>
+              <td class="p-3.5 font-mono text-[#171717] font-semibold">{res.w} × {res.h}</td>
+              <td class="p-3.5 font-mono">{((res.w * res.h) / 1000000).toFixed(1)} MP</td>
+              <td class="p-3.5 text-[#4d4d4d]">{res.use}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </section>
+</BaseLayout>

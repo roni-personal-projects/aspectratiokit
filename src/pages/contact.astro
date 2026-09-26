@@ -1,0 +1,126 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Contact Us - AspectRatioKit | Support & Feedback"
+  description="Get in touch with the AspectRatioKit team. Send us feedback, feature requests, or questions regarding our aspect ratio tools."
+  canonicalPath="/contact"
+  activeNav="/contact"
+>
+  <div class="py-16 bg-[#fafafa] dark:bg-[#0a0a0a] border-b border-[#ebebeb] dark:border-[#262626] transition-colors duration-150">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white dark:bg-[#141414] border border-[#ebebeb] dark:border-[#262626] text-xs font-mono uppercase text-[#0070f3] mb-4">
+        <span>Get in Touch</span>
+      </div>
+      <h1 class="text-3xl sm:text-5xl font-semibold tracking-tight text-[#171717] dark:text-white">
+        Contact &amp; Support
+      </h1>
+      <p class="mt-4 text-base sm:text-lg text-[#4d4d4d] dark:text-[#a1a1a1] max-w-xl mx-auto leading-relaxed">
+        Have a question, identified a bug, or want to suggest a new ratio preset? We'd love to hear from you.
+      </p>
+    </div>
+  </div>
+
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+      
+      <!-- Contact Info Cards -->
+      <div class="space-y-6 md:col-span-1">
+        <div class="p-5 rounded-xl border border-[#ebebeb] dark:border-[#262626] bg-white dark:bg-[#141414] whisper-shadow space-y-2">
+          <div class="text-xs font-mono uppercase text-[#8f8f8f] font-semibold">General Support</div>
+          <div class="text-sm font-semibold text-[#171717] dark:text-white">hello@aspectratiokit.pages.dev</div>
+          <p class="text-xs text-[#737373] dark:text-[#a1a1a1]">For questions, suggestions, or general creator feedback.</p>
+        </div>
+
+        <div class="p-5 rounded-xl border border-[#ebebeb] dark:border-[#262626] bg-white dark:bg-[#141414] whisper-shadow space-y-2">
+          <div class="text-xs font-mono uppercase text-[#8f8f8f] font-semibold">Privacy &amp; Security</div>
+          <div class="text-sm font-semibold text-[#171717] dark:text-white">privacy@aspectratiokit.pages.dev</div>
+          <p class="text-xs text-[#737373] dark:text-[#a1a1a1]">For security inquiries or data architecture questions.</p>
+        </div>
+
+        <div class="p-5 rounded-xl border border-[#ebebeb] dark:border-[#262626] bg-white dark:bg-[#141414] whisper-shadow space-y-2">
+          <div class="text-xs font-mono uppercase text-[#8f8f8f] font-semibold">Fast Answers</div>
+          <div class="text-sm font-semibold text-[#171717] dark:text-white">Check our FAQ Guide</div>
+          <p class="text-xs text-[#737373] dark:text-[#a1a1a1]">Most common questions about formulas, 16:9, and print inches are answered in our guide.</p>
+          <a href="/#faq" class="text-xs text-[#0070f3] hover:underline inline-block pt-1 font-medium">Browse FAQs →</a>
+        </div>
+      </div>
+
+      <!-- Contact Form -->
+      <div class="md:col-span-2">
+        <div class="p-6 sm:p-8 rounded-xl border border-[#ebebeb] dark:border-[#262626] bg-white dark:bg-[#141414] whisper-shadow">
+          <h2 class="text-xl font-semibold text-[#171717] dark:text-white mb-2">Send Us a Message</h2>
+          <p class="text-xs sm:text-sm text-[#737373] dark:text-[#a1a1a1] mb-6">
+            Fill out the form below and we will get back to you as soon as possible.
+          </p>
+
+          <form id="contact-form" class="space-y-4" onsubmit="event.preventDefault(); document.getElementById('contact-success').classList.remove('hidden'); this.reset();">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label for="name" class="block text-xs font-mono uppercase text-[#737373] dark:text-[#a1a1a1] mb-1.5 font-medium">Your Name</label>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  required
+                  placeholder="e.g. Alex Smith"
+                  class="w-full px-3.5 py-2 rounded-lg border border-[#ebebeb] dark:border-[#262626] bg-[#fafafa] dark:bg-[#1a1a1a] text-sm text-[#171717] dark:text-white placeholder:text-[#a1a1a1] focus:outline-none focus:border-[#171717] dark:focus:border-white transition-colors"
+                />
+              </div>
+
+              <div>
+                <label for="email" class="block text-xs font-mono uppercase text-[#737373] dark:text-[#a1a1a1] mb-1.5 font-medium">Your Email</label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  required
+                  placeholder="alex@example.com"
+                  class="w-full px-3.5 py-2 rounded-lg border border-[#ebebeb] dark:border-[#262626] bg-[#fafafa] dark:bg-[#1a1a1a] text-sm text-[#171717] dark:text-white placeholder:text-[#a1a1a1] focus:outline-none focus:border-[#171717] dark:focus:border-white transition-colors"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label for="category" class="block text-xs font-mono uppercase text-[#737373] dark:text-[#a1a1a1] mb-1.5 font-medium">Subject Category</label>
+              <select
+                id="category"
+                name="category"
+                class="w-full px-3.5 py-2 rounded-lg border border-[#ebebeb] dark:border-[#262626] bg-[#fafafa] dark:bg-[#1a1a1a] text-sm text-[#171717] dark:text-white focus:outline-none focus:border-[#171717] dark:focus:border-white transition-colors"
+              >
+                <option value="feedback">General Feedback &amp; Suggestions</option>
+                <option value="feature">Request New Preset / Feature</option>
+                <option value="bug">Bug Report / Calculation Issue</option>
+                <option value="other">Other Inquiry</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="message" class="block text-xs font-mono uppercase text-[#737373] dark:text-[#a1a1a1] mb-1.5 font-medium">Message</label>
+              <textarea
+                id="message"
+                name="message"
+                rows="5"
+                required
+                placeholder="Describe your suggestion or question..."
+                class="w-full px-3.5 py-2 rounded-lg border border-[#ebebeb] dark:border-[#262626] bg-[#fafafa] dark:bg-[#1a1a1a] text-sm text-[#171717] dark:text-white placeholder:text-[#a1a1a1] focus:outline-none focus:border-[#171717] dark:focus:border-white transition-colors"
+              ></textarea>
+            </div>
+
+            <button
+              type="submit"
+              class="w-full sm:w-auto px-6 py-2.5 rounded-full bg-[#171717] dark:bg-white text-white dark:text-[#171717] text-sm font-medium hover:bg-[#333333] dark:hover:bg-[#ededed] transition-all shadow-xs cursor-pointer"
+            >
+              Send Message
+            </button>
+          </form>
+
+          <div id="contact-success" class="hidden mt-4 p-4 rounded-lg bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800 text-xs text-emerald-800 dark:text-emerald-300">
+            ✓ Thank you! Your message has been received. We will get back to you shortly.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</BaseLayout>
